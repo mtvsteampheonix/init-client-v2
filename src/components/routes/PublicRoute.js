@@ -1,23 +1,6 @@
-import {Route, Redirect} from 'react-router-dom';
+import {Route, redirect} from 'react-router-dom';
 import isLogin from '../../utils/auths/isLogin';
 
-export default function PublicRoute({
-  component: Component,
-  restricted,
-  ...rest
-}) {
-  return (
-    <>
-      <Route
-        {...rest}
-        render={(props) =>
-          isLogin() && restricted ? (
-            <Redirect to='/' />
-          ) : (
-            <Component {...props} />
-          )
-        }
-      />
-    </>
-  );
+export default function PublicRoute({restricted, ...rest}) {
+  return <>{isLogin() && restricted ? redirect('/') : <Route {...rest} />}</>;
 }

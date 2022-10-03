@@ -1,7 +1,11 @@
 import Cookies from 'js-cookie';
 
 const isLogin = () => {
-  Cookies.get('token');
+  // const token = Cookies.get('token');
+  const token = {
+    role: 'ROLE_COMPANY'
+  };
+  return token.role;
 };
 
 export default isLogin;
