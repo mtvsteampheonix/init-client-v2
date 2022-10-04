@@ -10,9 +10,7 @@ function App() {
   return (
     <>
       <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <BrowserRouter>{<IndexRoute />}</BrowserRouter>
-        </ThemeProvider>
+        <ThemeProvider theme={theme}>{<IndexRoute />}</ThemeProvider>
       </Provider>
     </>
   );
