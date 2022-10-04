@@ -51,16 +51,14 @@ export default function NonMemberHeader() {
               justifyContent='space-around'
             >
               {menuList.map((menu) => (
-                <>
-                  <Link
-                    key={menu.code}
-                    to={`${menu.menuUrl}`}
-                    underline='none'
-                    fontWeight='bold'
-                  >
-                    {menu.menuName}
-                  </Link>
-                </>
+                <Link
+                  key={menu.code}
+                  to={`${menu.menuUrl}`}
+                  underline='none'
+                  fontWeight='bold'
+                >
+                  {menu.menuName}
+                </Link>
               ))}
             </Grid>
             <Grid item xs={12} sm='auto' display='flex' alignItems='center'>

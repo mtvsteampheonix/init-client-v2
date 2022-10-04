@@ -78,21 +78,19 @@ export default function AdminHeader() {
                 justifyContent='space-around'
               >
                 {menuList.map((menu) => (
-                  <>
-                    <Link
-                      key={menu.code}
-                      to={`${menu.menuUrl}`}
-                      style={{color: 'white'}}
-                      underline='none'
-                      fontWeight='bold'
-                      onClick={() => {
-                        setPageState(menu.code);
-                        console.log(pageState);
-                      }}
-                    >
-                      {menu.menuName}
-                    </Link>
-                  </>
+                  <Link
+                    key={menu.code}
+                    to={`${menu.menuUrl}`}
+                    style={{color: 'white'}}
+                    underline='none'
+                    fontWeight='bold'
+                    onClick={() => {
+                      setPageState(menu.code);
+                      console.log(pageState);
+                    }}
+                  >
+                    {menu.menuName}
+                  </Link>
                 ))}
               </Grid>
               <Grid item xs={12} sm='auto' display='flex' alignItems='center'>
