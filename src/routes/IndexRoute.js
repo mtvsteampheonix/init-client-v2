@@ -3,20 +3,16 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
   RouterProvider,
-  redirect,
-  useLocation
+  redirect
 } from 'react-router-dom';
-import isLogin from '../utils/auth/isLogin';
-import AdminRoute from './admin/AdminRoute';
-import CompanyMemberRoute from './company-member/CompanyMemberRoute';
-import NonMemberRoute from './non-member/NonMemberRoute';
-import PersonalMemberRoute from './personal-member/PersonalMemberRoute';
 import Test from './../pages/Test';
-import IndexLayout from './../layouts/IndexLayout';
+import IndexLayout from '../layouts/root-layouts/IndexLayout';
+import Login from './../pages/auth/Login';
+import getToken from './../utils/auth/getToken';
 
 export default function IndexRoute() {
   const actionAuths = () => {
-    return isLogin() ? null : redirect('/login');
+    return getToken() ? null : redirect('/login');
   };
   const actionPublic = () => {
     console.log('Public');
@@ -27,7 +23,10 @@ export default function IndexRoute() {
     createRoutesFromElements(
       <>
         <Route path='' element={<IndexLayout />}>
-          <Route path='/test' element={<Test />} />
+          <Route path='test' element={<Test />} />
+          <Route path='auths'>
+            <Route path='login' element={<Login />} />
+          </Route>
         </Route>
       </>
     )

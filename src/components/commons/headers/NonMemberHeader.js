@@ -11,10 +11,10 @@ import {
 
 const menuList = [
   {code: 1, menuName: '채용공고', menuUrl: '/jobsearch'},
-  {code: 2, menuName: '기업조회', menuUrl: '/member/login'},
-  {code: 3, menuName: '커리어', menuUrl: '/member/login'},
-  {code: 4, menuName: '프로필 관리', menuUrl: '/member/login'},
-  {code: 5, menuName: '마이페이지', menuUrl: '/member/login'}
+  {code: 2, menuName: '기업조회', menuUrl: '/auths/login'},
+  {code: 3, menuName: '커리어', menuUrl: '/auths/login'},
+  {code: 4, menuName: '프로필 관리', menuUrl: '/auths/login'},
+  {code: 5, menuName: '마이페이지', menuUrl: '/auths/login'}
 ];
 
 export default function NonMemberHeader() {
@@ -64,7 +64,7 @@ export default function NonMemberHeader() {
             <Grid item xs={12} sm='auto' display='flex' alignItems='center'>
               <Button
                 component={Link}
-                to='/member/login'
+                to='/auths/login'
                 variant='contained'
                 size='large'
               >

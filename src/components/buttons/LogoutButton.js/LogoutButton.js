@@ -1,16 +1,16 @@
 import {Button} from '@mui/material';
-import {useDispatch} from 'react-redux';
 import {useNavigate} from 'react-router-dom';
+import logout from '../../../utils/auth/logout';
 
 export default function LogoutButton() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate(0);
+  const navigate = useNavigate();
   return (
     <>
       <Button
         variant='contained'
         onClick={() => {
-          navigate('/');
+          logout();
+          window.location.href = '/';
         }}
         sx={{marginLeft: 1}}
       >

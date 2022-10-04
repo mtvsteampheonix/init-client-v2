@@ -12,7 +12,9 @@ export default function CompanyMemberLayout() {
           disableGutters
           sx={{minWidth: '400px', flex: 1}}
         >
-          <Outlet />
+          <main>
+            <Outlet />
+          </main>
         </Container>
         <CommonFooter />
       </Box>

@@ -1,12 +1,12 @@
-import AdminLayout from './root-layouts/AdminLayout';
-import CompanyMemberLayout from './root-layouts/CompanyMemberLayout';
-import NonMemberLayout from './root-layouts/NonMemberLayout';
-import PersonalMemberLayout from './root-layouts/PersonalMemberLayout';
-import getToken from './../utils/auth/getToken';
+import AdminLayout from './AdminLayout';
+import CompanyMemberLayout from './CompanyMemberLayout';
+import NonMemberLayout from './NonMemberLayout';
+import PersonalMemberLayout from './PersonalMemberLayout';
+import getToken from '../../utils/auth/getToken';
 
 export default function IndexLayout() {
   const LayoutSeletor = () => {
-    switch (getToken().role) {
+    switch (getToken()) {
       case 'ROLE_ADMIN':
         return <AdminLayout />;
       case 'ROLE_PERSONAL':
