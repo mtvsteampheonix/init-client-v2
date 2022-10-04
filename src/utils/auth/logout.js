@@ -1,4 +1,3 @@
-import Cookies from 'js-cookie';
 import setCookie from './setCookie';
 const logout = () => {
   setCookie('bearer', '', 0);

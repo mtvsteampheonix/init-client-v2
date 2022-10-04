@@ -8,8 +8,7 @@ import {
   Box,
   Stack
 } from '@mui/material';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import {Link, useNavigate} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {useState} from 'react';
 import {CallPostLoginAPI} from '../../apis/AuthAPICalls';
@@ -17,7 +16,6 @@ import {CallPostLoginAPI} from '../../apis/AuthAPICalls';
 function Login() {
   const [loginData, setLoginData] = useState({memberId: '', memberPw: ''});
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const handleChange = (e) =>
     setLoginData({
@@ -25,7 +23,7 @@ function Login() {
       [e.target.name]: e.target.value
     });
 
-  const handleOnclickLogin = (e) => {
+  const handleSubmitLogin = (e) => {
     dispatch(CallPostLoginAPI(loginData)).then((res) => {
       return res ? (window.location.href = '/') : alert('실패');
     });
@@ -81,6 +79,11 @@ function Login() {
             id='memberPw'
             autoComplete='current-password'
             onChange={handleChange}
+            onKeyPress={(e) => {
+              if (e.key === 'Enter') {
+                return handleSubmitLogin();
+              }
+            }}
           />
           <FormControlLabel
             control={<Checkbox value='remember' />}
@@ -92,7 +95,7 @@ function Login() {
             variant='contained'
             color='primary'
             sx={{marginTop: 3, marginBottom: 2}}
-            onClick={handleOnclickLogin}
+            onClick={handleSubmitLogin}
           >
             로그인
           </Button>

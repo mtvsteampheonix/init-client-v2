@@ -14,7 +14,7 @@ const StyledBox = styled(Box)(({theme}) => ({
 export default function AdminFooter() {
   return (
     <>
-      <Divider sx={{width: '100%'}} />
+      <Divider sx={{width: '100%', marginTop: 10}} />
       <StyledBox padding={5} display='flex' alignItems='center'>
         <Container disableGutters component={Stack} spacing={5}>
           <Grid container justifyContent='space-between' rowGap={5}>

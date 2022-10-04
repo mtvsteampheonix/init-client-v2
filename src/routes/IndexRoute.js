@@ -14,18 +14,20 @@ export default function IndexRoute() {
   const actionAuths = () => {
     return getToken() ? null : redirect('/login');
   };
-  const actionPublic = () => {
-    console.log('Public');
-    console.log();
-    // return isLogin() ? redirect()
+  const actionPublic = (isNonMember) => {
+    return getToken() && isNonMember ? redirect('/') : null;
   };
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
         <Route path='' element={<IndexLayout />}>
-          <Route path='test' element={<Test />} />
+          <Route index element={<Test />} />
           <Route path='auths'>
-            <Route path='login' element={<Login />} />
+            <Route
+              path='login'
+              action={() => actionPublic(true)}
+              element={<Login />}
+            />
           </Route>
         </Route>
       </>
