@@ -22,7 +22,6 @@ export function CallPostLoginAPI(loginData) {
     }).then((res) => res.json());
     console.log(result.data?.accessTokenExpiresIn);
     console.log(result);
-    const cookies = new Cookies();
     if (result.status === httpStatus.OK) {
       setCookie(
         result.data?.grantType,
