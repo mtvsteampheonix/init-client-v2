@@ -6,12 +6,6 @@ import {
 } from 'react-router-dom';
 import Test from './../pages/Test';
 import IndexLayout from '../layouts/root-layouts/IndexLayout';
-import AuthsRoute from './auths/AuthsRoute';
-import onlyAuths from '../utils/route/onlyAuths';
-import onlyNonMember from '../utils/route/onlyNonMember';
-import onlyCompany from './../utils/route/onlyCompany';
-import onlyPersonal from './../utils/route/onlyPersonal';
-import onlyAdmin from './../utils/route/onlyAdmin';
 
 export default function IndexRoute() {
   const router = createBrowserRouter(
