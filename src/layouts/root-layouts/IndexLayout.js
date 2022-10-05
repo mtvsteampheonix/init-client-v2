@@ -6,8 +6,7 @@ import getToken from '../../utils/auth/getToken';
 
 export default function IndexLayout() {
   const LayoutSeletor = () => {
-    console.log(getToken());
-    switch (getToken()) {
+    switch (getToken()?.auths) {
       case 'ROLE_ADMIN':
         return <AdminLayout />;
       case 'ROLE_PERSONAL':
