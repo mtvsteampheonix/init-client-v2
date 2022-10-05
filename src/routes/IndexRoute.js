@@ -2,39 +2,29 @@ import {
   Route,
   createBrowserRouter,
   createRoutesFromElements,
-  RouterProvider,
-  redirect
+  RouterProvider
 } from 'react-router-dom';
 import Test from './../pages/Test';
 import IndexLayout from '../layouts/root-layouts/IndexLayout';
-import Login from './../pages/auth/Login';
-import getToken from './../utils/auth/getToken';
+import AuthsRoute from './auths/AuthsRoute';
+import onlyAuths from '../utils/route/onlyAuths';
+import onlyNonMember from '../utils/route/onlyNonMember';
+import onlyCompany from './../utils/route/onlyCompany';
+import onlyPersonal from './../utils/route/onlyPersonal';
+import onlyAdmin from './../utils/route/onlyAdmin';
 
 export default function IndexRoute() {
-  const actionAuths = () => {
-    return getToken() ? null : redirect('/login');
-  };
-  const actionPublic = (isNonMember) => {
-    return getToken() && isNonMember ? redirect('/') : null;
-  };
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
         <Route path='' element={<IndexLayout />}>
           <Route index element={<Test />} />
-          <Route path='auths'>
-            <Route
-              path='login'
-              action={() => actionPublic(true)}
-              element={<Login />}
-            />
-          </Route>
+          <Route path='auths'>{AuthsRoute()}</Route>
+          <Route path='test' loader={onlyAdmin} element={<Test />} />
         </Route>
       </>
     )
   );
-
-  // return <AdminRoute />;
 
   return <RouterProvider router={router} />;
 }

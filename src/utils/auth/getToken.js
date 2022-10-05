@@ -3,13 +3,16 @@ import Cookies from 'js-cookie';
 
 const getToken = () => {
   const token = Cookies.get('bearer');
-  let auths;
+
+  let role;
   try {
-    auths = jwtDecode(token).auths[0];
+    console.log(jwtDecode(token));
+    role = jwtDecode(token).auths[0];
   } catch (e) {
-    auths = null;
+    role = null;
   }
-  return auths;
+  console.log(role);
+  return role;
 };
 
 export default getToken;
