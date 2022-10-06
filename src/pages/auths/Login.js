@@ -101,7 +101,7 @@ function Login() {
           </Button>
           <Box display='flex' justifyContent='space-between'>
             <Link to='../reset-password'>비밀번호 재설정</Link>
-            <Link to='../regist/agree-terms'>회원가입</Link>
+            <Link to='../signup'>회원가입</Link>
           </Box>
         </Stack>
       </Box>

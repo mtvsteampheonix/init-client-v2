@@ -2,7 +2,7 @@ import {handleActions} from 'redux-actions';
 
 const initstate = {};
 
-export const LOGIN = 'auth/LOGIN';
+export const LOGIN = 'auths/LOGIN';
 
 const authReducer = handleActions(
   {

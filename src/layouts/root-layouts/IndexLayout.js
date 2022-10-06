@@ -2,7 +2,7 @@ import AdminLayout from './AdminLayout';
 import CompanyMemberLayout from './CompanyMemberLayout';
 import NonMemberLayout from './NonMemberLayout';
 import PersonalMemberLayout from './PersonalMemberLayout';
-import getToken from '../../utils/auth/getToken';
+import getToken from '../../utils/auths/getToken';
 
 export default function IndexLayout() {
   const LayoutSeletor = () => {

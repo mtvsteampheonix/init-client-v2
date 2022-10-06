@@ -1,7 +1,7 @@
 import {LOGIN} from '../modules/authModule';
 import httpStatus from 'http-status';
-import setCookie from '../utils/auth/setCookie';
-import getToken from './../utils/auth/getToken';
+import setCookie from '../utils/auths/setCookie';
+import getToken from '../utils/auths/getToken';
 import Cookies from 'universal-cookie';
 
 const rootURL = 'http://localhost:8080';
