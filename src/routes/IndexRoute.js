@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 import Test from './../pages/Test';
 import IndexLayout from '../layouts/root-layouts/IndexLayout';
+
 import AuthsRoute from './auths/AuthsRoute';
 import onlyAuths from '../utils/route/onlyAuths';
 import onlyNonMember from '../utils/route/onlyNonMember';
@@ -18,6 +19,7 @@ import ApplyListPersonal from './../pages/match/ApplyListPersonal';
 import applyListPersonalRoute from './match/applyListPersonalRoute';
 import getToken from './../utils/auth/getToken';
 import PersonalMypage from './mypages/PersonalMypage';
+
 export default function IndexRoute() {
   const router = createBrowserRouter(
     createRoutesFromElements(
