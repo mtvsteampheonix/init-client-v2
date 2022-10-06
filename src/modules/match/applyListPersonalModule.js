@@ -1,4 +1,4 @@
-import {handleActions} from 'redux-action';
+import {handleActions} from 'redux-actions';
 
 const applyListPersonal = [];
 

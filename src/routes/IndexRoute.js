@@ -12,7 +12,12 @@ import onlyNonMember from '../utils/route/onlyNonMember';
 import onlyCompany from './../utils/route/onlyCompany';
 import onlyPersonal from './../utils/route/onlyPersonal';
 import onlyAdmin from './../utils/route/onlyAdmin';
-
+import CompanyMypageLayout from '../layouts/mypages/CompanyMypageLayout';
+import PersonalMypageLayout from '../layouts/mypages/PersonalMypageLayout';
+import ApplyListPersonal from './../pages/match/ApplyListPersonal';
+import applyListPersonalRoute from './match/applyListPersonalRoute';
+import getToken from './../utils/auth/getToken';
+import PersonalMypage from './mypages/PersonalMypage';
 export default function IndexRoute() {
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -21,6 +26,7 @@ export default function IndexRoute() {
           <Route index element={<Test />} />
           <Route path='auths'>{AuthsRoute()}</Route>
           <Route path='test' loader={onlyAdmin} element={<Test />} />
+          {'ROLE_PEROSNAL' === 'ROLE_PEROSNAL' ? PersonalMypage() : null}
         </Route>
       </>
     )
