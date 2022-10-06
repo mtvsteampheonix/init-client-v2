@@ -6,6 +6,8 @@ import {
 } from 'react-router-dom';
 import Test from './../pages/Test';
 import IndexLayout from '../layouts/root-layouts/IndexLayout';
+import AuthsRoute from './auths/AuthsRoute';
+import onlyAdmin from './../utils/route/onlyAdmin';
 
 export default function IndexRoute() {
   const router = createBrowserRouter(
@@ -13,7 +15,7 @@ export default function IndexRoute() {
       <>
         <Route path='' element={<IndexLayout />}>
           <Route index element={<Test />} />
-          <Route path='auths'>{AuthsRoute()}</Route>
+          <Route path='auths' children={AuthsRoute()} />
           <Route path='test' loader={onlyAdmin} element={<Test />} />
         </Route>
       </>
