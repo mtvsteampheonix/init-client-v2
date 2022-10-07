@@ -1,6 +1,6 @@
 import {Button} from '@mui/material';
 import {useNavigate} from 'react-router-dom';
-import logout from '../../../utils/auth/logout';
+import logout from '../../../utils/auths/logout';
 
 export default function LogoutButton() {
   const navigate = useNavigate();
