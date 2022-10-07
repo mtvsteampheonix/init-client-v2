@@ -5,5 +5,6 @@ export default function applyListPersonalRoute() {
   return;
   <>
     <Route path='apply-list' element={<ApplyListPersonal />} />
+    <Route path='apply-list-detail' element={<ApplyListPersonal />} />
   </>;
 }
