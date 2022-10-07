@@ -6,7 +6,7 @@ export function callApplyListPersonalAPI(searchValue) {
   return async function getApplyListPersonalAPI(dispatch, getState) {
     const result = await fetch(
       rootURL +
-        '/matchs/personal/apply-list?memberCode=' +
+        '/matches/personal/apply-list?memberCode=' +
         searchValue.memberCode +
         '&page=' +
         searchValue.page +

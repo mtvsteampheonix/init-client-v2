@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Checkbox from '@mui/material/Checkbox';
 import {useNavigate} from 'react-router-dom';
 import Button from '@mui/material/button';
 import {Typography, Box, Grid} from '@mui/material';
@@ -13,10 +12,8 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import getToken from '../../utils/auth/getToken';
 import {callApplyListPersonalAPI} from '../../apis/match/MatchAPICalls';
 import {useDispatch, useSelector} from 'react-redux';
-import {ContactlessOutlined, EightK} from '@mui/icons-material';
 
 const ApplyPageHeaderComponent = styled.nav`
   display: flex;

@@ -13,7 +13,7 @@ export default function IndexLayout() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
-
+  console.log(getToken()?.auths);
   const LayoutSeletor = () => {
     switch (getToken()?.auths) {
       case 'ROLE_ADMIN':
