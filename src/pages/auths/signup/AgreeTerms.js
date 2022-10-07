@@ -7,18 +7,18 @@ import {
   Stack,
   Grid,
   Container,
-  Avatar
+  Avatar,
+  Box
 } from '@mui/material';
-import {Box} from '@mui/system';
 import {useDispatch, useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {SET_TERMSCHECKED} from '../../../modules/auths/signupModule';
 
 export default function AgreeTerms() {
   const singupData = useSelector((state) => state.signupReducer);
-  const dispatch = useDispatch();
   const {terms} = singupData;
   const {checked} = terms;
+  const dispatch = useDispatch();
   const AllcheckHandleChange = (event) => {
     dispatch({
       type: SET_TERMSCHECKED,
@@ -128,7 +128,7 @@ export default function AgreeTerms() {
             <>
               <Button
                 component={Link}
-                to='../input-form-personal'
+                to='input-form-personal'
                 variant='contained'
                 sx={{
                   width: '100%',
@@ -140,7 +140,7 @@ export default function AgreeTerms() {
 
               <Button
                 component={Link}
-                to='../input-company'
+                to='input-from-company'
                 variant='contained'
                 sx={{
                   width: '100%',
