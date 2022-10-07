@@ -128,7 +128,7 @@ export default function AgreeTerms() {
             <>
               <Button
                 component={Link}
-                to='../input-personal'
+                to='../input-form-personal'
                 variant='contained'
                 sx={{
                   width: '100%',
