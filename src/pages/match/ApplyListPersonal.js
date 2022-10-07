@@ -158,7 +158,7 @@ function ApplyListPersonal() {
             item
             xs={7.7}
             onClick={() => {
-              navigate('/mypage/apply-list/details/' + companyInfo.noticeCode);
+              navigate('/mypage/apply-list/detail/' + companyInfo.noticeCode);
             }}
           >
             <Grid container flexDirection='column'>
