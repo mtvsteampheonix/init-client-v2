@@ -1,6 +1,12 @@
 import {combineReducers} from 'redux';
-import signupReducer from './signupModule';
+import authReducer from './authModule';
+import applyListPersonalReducer from './match/applyListPersonalModule';
+import myPageSidebarReducer from './mypage/mypageSidebarModule';
 
-const rootReducer = combineReducers({signupReducer});
+const rootReducer = combineReducers({
+  authReducer,
+  applyListPersonalReducer,
+  myPageSidebarReducer
+});
 
 export default rootReducer;
