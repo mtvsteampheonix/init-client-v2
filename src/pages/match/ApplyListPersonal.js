@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Checkbox from '@mui/material/Checkbox';
 import {useNavigate} from 'react-router-dom';
 import Button from '@mui/material/button';
 import {Typography, Box, Grid} from '@mui/material';
@@ -14,6 +15,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import {callApplyListPersonalAPI} from '../../apis/match/MatchAPICalls';
 import {useDispatch, useSelector} from 'react-redux';
+import {ContactlessOutlined, EightK} from '@mui/icons-material';
 
 const ApplyPageHeaderComponent = styled.nav`
   display: flex;
@@ -114,11 +116,16 @@ function ApplyListPersonal() {
             </FormControl>
           </Box>
           <TextField
-            multiline={true}
+            multiline={false}
             id='outlined-helperText'
             label='검색'
             InputProps={{
               sx: {height: '40px', marginTop: '8px'}
+            }}
+            onKeyDown={(e) => {
+              if (e.keyCode == 13) {
+                setCheckFilter(!checkFilter);
+              }
             }}
             onChange={getContent}
           />
