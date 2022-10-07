@@ -12,7 +12,7 @@ import {
 import {Box} from '@mui/system';
 import {useDispatch, useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {SET_TERMSCHECKED} from '../../../modules/signupModule';
+import {SET_TERMSCHECKED} from '../../../modules/auths/signupModule';
 
 export default function AgreeTerms() {
   const singupData = useSelector((state) => state.signupReducer);
