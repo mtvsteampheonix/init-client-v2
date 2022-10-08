@@ -12,7 +12,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import {callApplyListPersonalAPI} from '../../apis/match/MatchAPICalls';
+import {callSuggestionListPersonalAPI} from '../../apis/match/MatchAPICalls';
 import {useDispatch, useSelector} from 'react-redux';
 
 const ApplyPageHeaderComponent = styled.nav`
@@ -43,10 +43,11 @@ const FormGroup = styled.div`
   align-items: center;
 `;
 
-function ApplyListPersonal() {
+function SuggestionList() {
   const [checkFilter, setCheckFilter] = React.useState(false);
   const dispatch = useDispatch();
-  const applyList = useSelector((state) => state.applyListPersonalReducer);
+  const suggestionList = useSelector((state) => state.suggestionListPersonalReducer);
+  console.log(suggestionList);
   const navigate = useNavigate();
   const [page, setPage] = React.useState(1);
   const handleChange = (event, value) => {
@@ -72,7 +73,7 @@ function ApplyListPersonal() {
   //     setAge(event.target.value);
   //   };
   React.useEffect(() => {
-    dispatch(callApplyListPersonalAPI(searchValue));
+    dispatch(callSuggestionListPersonalAPI(searchValue));
   }, [checkFilter, page]);
 
   const [checked, setChecked] = React.useState([0]);
@@ -94,11 +95,11 @@ function ApplyListPersonal() {
     <>
       {/* 헤더입니다. */}
       <ApplyPageHeaderComponent>
-        <Title>지원 내역</Title>
+        <Title>면접 제안 내역</Title>
         <FormGroup>
           <Box sx={{minWidth: 120}}>
             <FormControl fullWidth>
-              <InputLabel id='demo-simple-select-label'>제목, 이름</InputLabel>
+              <InputLabel id='demo-simple-select-label'>회사검색</InputLabel>
               <Select
                 style={{marginTop: '8px'}}
                 size='small'
@@ -108,8 +109,8 @@ function ApplyListPersonal() {
                 label='process'
                 onChange={getCriteria}
               >
-                <MenuItem value={'title'}>공고제목</MenuItem>
-                <MenuItem value={'comName'}>기업이름</MenuItem>
+                <MenuItem value={'comName'}>회사이름</MenuItem>
+                {/* <MenuItem value={'interviewDate'}>날짜</MenuItem> */}
               </Select>
             </FormControl>
           </Box>
@@ -141,36 +142,26 @@ function ApplyListPersonal() {
         </FormGroup>
       </ApplyPageHeaderComponent>
       {/* 바디입니다. */}
-      {applyList.map((companyInfo, index) => (
+      {suggestionList.map((interviewSuggestionInfo, index) => (
         <Grid container paddingLeft={3} paddingTop={1.5} key={index}>
           <Grid
             item
-            xs={1.4}
-            display='flex'
-            justifyContent='center'
-            alignItems='center'
-          >
-            <Typography variant='h6'>{companyInfo.comName}</Typography>
-          </Grid>
-          <Grid
-            item
-            xs={7.7}
+            xs={9.1}
             onClick={() => {
-              navigate('/mypage/apply-list/detail/' + companyInfo.noticeCode);
+              navigate('/mypage/suggestion-list/detail/' + interviewSuggestionInfo.interviewSuggestionCode);
             }}
           >
             <Grid container flexDirection='column'>
               <Grid item>
-                <Typography variant='h4'>{companyInfo.title}</Typography>
+                <Typography variant='h4'>{interviewSuggestionInfo.comName}</Typography>
               </Grid>
               <Grid item>
-                {companyInfo.career} {companyInfo.education}{' '}
-                {companyInfo.entLocation}
+                {interviewSuggestionInfo.comUrl}
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={1} paddingTop={5}>
-            {companyInfo.postStartDate}
+          <Grid item xs={1} paddingTop={2.8}>
+            면접 일자 : {interviewSuggestionInfo.interviewDate}
           </Grid>
           <Grid
             item
@@ -180,7 +171,7 @@ function ApplyListPersonal() {
             justifyContent='center'
             alignItems='center'
           >
-            {companyInfo.isAccepted == null ? (
+            {interviewSuggestionInfo.suggestionReponse == null ? (
               <LoadingButton
                 sx={{width: '100px'}}
                 loading={true}
@@ -188,11 +179,11 @@ function ApplyListPersonal() {
                 startIcon={<SaveIcon />}
                 variant='outlined'
               >
-                진행중
+                미응답
               </LoadingButton>
-            ) : companyInfo.isAccepted == 'N' ? (
+            ) : interviewSuggestionInfo.suggestionReponse == 'N' ? (
               <Button sx={{width: '100px'}} variant='outlined' color='error'>
-                불합격
+                거절
               </Button>
             ) : (
               <Button sx={{width: '100px'}} variant='outlined'>
@@ -215,4 +206,4 @@ function ApplyListPersonal() {
   );
 }
 
-export default ApplyListPersonal;
+export default SuggestionList;
