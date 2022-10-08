@@ -1,4 +1,5 @@
 import {PERSONAL_APPLY_LIST} from '../../modules/match/applyListPersonalModule';
+import { PERSONAL_SUGGESTION_LIST } from '../../modules/match/suggestionListPersonalModule';
 import {PERSONAL_APPLY_LIST_DETAIL} from './../../modules/match/applyListDetailPersonalModule';
 const rootURL = 'http://localhost:8080';
 
@@ -34,4 +35,21 @@ export function callApplyListDetailPersonalAPI(noticeCode, memberCode) {
     console.log(result);
     dispatch({type: PERSONAL_APPLY_LIST_DETAIL, payload: result});
   };
+}
+
+export function callSuggestionListPersonalAPI(searchValue){
+  return async function getSuggestionListPersonalAPI(dispatch, getState){
+    const result = await fetch(
+      rootURL + '/matches/personal/suggestion-list?memberCode='
+      + searchValue.memberCode
+      + '&page='
+      + searchValue.page
+      + '&criteria='
+      + searchValue.criteria
+      + '&content='
+      + searchValue.content
+    ).then(result => result.json());
+    console.log(result.data);
+    dispatch({type : PERSONAL_SUGGESTION_LIST, payload : result.data})
+  }
 }
