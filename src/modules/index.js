@@ -5,6 +5,7 @@ import applyListPersonalReducer from './match/applyListPersonalModule';
 import suggestionListPersonalReducer from './match/suggestionListPersonalModule';
 import suggestionListDetailPersonalReducer from './match/suggestionListDetailPersonalModule';
 import myPageSidebarReducer from './mypage/mypageSidebarModule';
+import editPersonalMemberReducer from './members/editPersonalMemberModule';
 
 const rootReducer = combineReducers({
   signupReducer,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   myPageSidebarReducer,
   applyListDetailPersonalReducer,
   suggestionListPersonalReducer,
-  suggestionListDetailPersonalReducer
+  suggestionListDetailPersonalReducer,
+  editPersonalMemberReducer
 });
 
 export default rootReducer;
