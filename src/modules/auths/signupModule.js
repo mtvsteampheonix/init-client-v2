@@ -1,7 +1,15 @@
 import {handleActions} from 'redux-actions';
 
 const initstate = {
-  formdata: {},
+  formdata: {
+    memberId: '',
+    memberPw: '',
+    memberPwReInput: '',
+    memberName: '',
+    phone: '',
+    email: '',
+    verifyCode: ''
+  },
   terms: {
     checked: {
       service: false,

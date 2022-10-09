@@ -1,12 +1,12 @@
 import {combineReducers} from 'redux';
-import signupModule from './auths/signupModule';
+import signupReducer from './auths/signupModule';
 import applyListDetailPersonalReducer from './match/applyListDetailPersonalModule';
 import applyListPersonalReducer from './match/applyListPersonalModule';
 import suggestionListPersonalReducer from './match/suggestionListPersonalModule';
 import myPageSidebarReducer from './mypage/mypageSidebarModule';
 
 const rootReducer = combineReducers({
-  signupModule,
+  signupReducer,
   applyListPersonalReducer,
   myPageSidebarReducer,
   applyListDetailPersonalReducer,
