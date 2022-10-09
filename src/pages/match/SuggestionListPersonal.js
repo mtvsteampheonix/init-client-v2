@@ -171,7 +171,7 @@ function SuggestionList() {
             justifyContent='center'
             alignItems='center'
           >
-            {interviewSuggestionInfo.suggestionReponse == null ? (
+            {interviewSuggestionInfo?.suggestionResponse == null ? (
               <LoadingButton
                 sx={{width: '100px'}}
                 loading={true}
@@ -181,7 +181,7 @@ function SuggestionList() {
               >
                 미응답
               </LoadingButton>
-            ) : interviewSuggestionInfo.suggestionReponse == 'N' ? (
+            ) : interviewSuggestionInfo.suggestionResponse == 'N' ? (
               <Button sx={{width: '100px'}} variant='outlined' color='error'>
                 거절
               </Button>
