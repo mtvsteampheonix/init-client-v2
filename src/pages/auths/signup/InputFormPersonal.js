@@ -1,14 +1,14 @@
 import {Typography, Grid, TextField, Button} from '@mui/material';
 import {Link, useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
-import {SET_FORMDATA} from '../../../modules/auths/signupModule';
 import {
   CallGetDuplicateMemberIdAPI,
   CallPostSignupPersonalAPI,
   CallPutSendEmailVerifyCodeAPI,
   CallPutVerifyEmailVerifyCodeAPI
-} from '../../../apis/AuthAPICalls';
+} from '../../../apis/auths/AuthAPICalls';
 import {useState} from 'react';
+import {SET_FORMDATA} from './../../../modules/auths/signupModule';
 function InputFormPersonal() {
   const signupData = useSelector((state) => state.signupReducer);
   const [isSendEmail, setIsSendEmail] = useState(false);

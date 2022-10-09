@@ -1,5 +1,5 @@
 import httpStatus from 'http-status';
-import setCookie from '../utils/auths/setCookie';
+import setCookie from './../../utils/auths/setCookie';
 
 const rootURL = 'http://localhost:8080';
 

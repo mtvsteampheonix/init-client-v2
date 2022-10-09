@@ -2,6 +2,7 @@ import {Link} from 'react-router-dom';
 import {Avatar, Box, Container, Divider, Grid, Typography} from '@mui/material';
 import * as React from 'react';
 import LogoutButton from '../../buttons/LogoutButton.js/LogoutButton';
+import getToken from '../../../utils/auths/getToken';
 
 const menuList = [
   {code: 1, menuName: '개인 회원 관리', menuUrl: '/admin'},
@@ -95,7 +96,7 @@ export default function AdminHeader() {
               <Typography>
                 어서오세요,{' '}
                 <Typography component='span' color='yellow'>
-                  관리자
+                  {getToken().memberName}
                 </Typography>
                 님
               </Typography>

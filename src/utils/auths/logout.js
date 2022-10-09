@@ -1,6 +1,6 @@
 import setCookie from './setCookie';
 const logout = () => {
-  setCookie('bearer', '', 0);
+  setCookie('bearer', '', new Date().getTime());
   console.log(document.cookie);
 };
 

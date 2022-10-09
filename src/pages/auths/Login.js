@@ -11,7 +11,7 @@ import {
 import {Link} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {useState} from 'react';
-import {CallPostLoginAPI} from '../../apis/AuthAPICalls';
+import {CallPostLoginAPI} from './../../apis/auths/AuthAPICalls';
 
 function Login() {
   const [loginData, setLoginData] = useState({memberId: '', memberPw: ''});
