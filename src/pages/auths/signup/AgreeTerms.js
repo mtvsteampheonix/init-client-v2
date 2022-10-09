@@ -10,6 +10,7 @@ import {
   Avatar,
   Box
 } from '@mui/material';
+import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {SET_TERMSCHECKED} from '../../../modules/auths/signupModule';
@@ -29,6 +30,7 @@ export default function AgreeTerms() {
       }
     });
   };
+
   const handleChange = (event) => {
     dispatch({
       type: SET_TERMSCHECKED,

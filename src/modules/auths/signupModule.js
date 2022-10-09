@@ -4,9 +4,11 @@ const initstate = {
   formdata: {
     memberId: '',
     memberPw: '',
-    memberPwReinput: '',
-    name: '',
-    email: ''
+    memberPwReInput: '',
+    memberName: '',
+    phone: '',
+    email: '',
+    verifyCode: ''
   },
   terms: {
     checked: {
