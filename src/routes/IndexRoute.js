@@ -11,6 +11,7 @@ import onlyAdmin from './../utils/routes/onlyAdmin';
 import onlyNonMember from '../utils/routes/onlyNonMember';
 import PersonalMypage from './mypages/PersonalMypage';
 import getToken from './../utils/auths/getToken';
+import WithdrawSuccess from './../pages/members/withdraws/WithdrawSuccess';
 
 export default function IndexRoute() {
   const router = createBrowserRouter(
@@ -21,6 +22,7 @@ export default function IndexRoute() {
           <Route path='auths' loader={onlyNonMember} children={AuthsRoute()} />
           {getToken()?.auths === 'ROLE_PERSONAL' ? PersonalMypage() : null}
           <Route path='test' loader={onlyAdmin} element={<Test />} />
+          <Route path='withdraw-success' element={<WithdrawSuccess />} />
         </Route>
       </>
     )

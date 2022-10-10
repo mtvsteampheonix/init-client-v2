@@ -271,6 +271,7 @@ export default function EditPersonalInfo() {
                 dispatch(CallPutPersonalMemberAPI()).then((res) => {
                   if (res) {
                     alert('회원정보 수정에 성공하였습니다.');
+                    window.location.reload();
                     return;
                   } else {
                     alert('회원정보 수정에 실패하였습니다.');
