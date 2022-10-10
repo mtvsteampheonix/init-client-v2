@@ -1,5 +1,6 @@
 import httpStatus from 'http-status';
 import Cookies from 'js-cookie';
+import setCookie from '../../utils/auths/setCookie';
 import {GET_PERSONAL_MEMBER} from './../../modules/members/editPersonalMemberModule';
 
 const rootURL = 'http://localhost:8080';
@@ -41,6 +42,11 @@ export function CallPutPersonalMemberAPI() {
       })
     }).then((res) => res.json());
     if (result.status === httpStatus.OK) {
+      setCookie(
+        result.data?.grantType,
+        result.data?.accessToken,
+        result.data?.accessTokenExpiresIn
+      );
       return true;
     }
     return false;
@@ -62,6 +68,27 @@ export function CallPatchPasswordAPI() {
         memberPw: updateForm.memberPw,
         changeMemberPw: updateForm.changeMemberPw,
         changeMemberPwReInput: updateForm.changeMemberPwReInput
+      })
+    }).then((res) => res.json());
+    if (result.status === httpStatus.OK) {
+      return true;
+    }
+    return false;
+  };
+}
+
+export function CallDeletePersonalMemberAPI(memberPw) {
+  return async function CallDeletePersonalMember() {
+    const result = await fetch(rootURL + '/members/withdraw', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+        'Access-Control-Allow-Origin': '*',
+        Authorization: 'Bearer ' + Cookies.get('bearer')
+      },
+      body: JSON.stringify({
+        memberPw: memberPw
       })
     }).then((res) => res.json());
     if (result.status === httpStatus.OK) {
