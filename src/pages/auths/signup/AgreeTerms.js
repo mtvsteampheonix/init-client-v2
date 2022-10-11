@@ -14,6 +14,7 @@ import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {SET_TERMSCHECKED} from '../../../modules/auths/signupModule';
+import {RESET_SIGNUP_REDUCER} from './../../../modules/auths/signupModule';
 
 export default function AgreeTerms() {
   const singupData = useSelector((state) => state.signupReducer);
@@ -47,6 +48,10 @@ export default function AgreeTerms() {
     }
     return false;
   };
+
+  useEffect(() => {
+    dispatch({type: RESET_SIGNUP_REDUCER});
+  }, []);
 
   const childrenCheckBox = (
     <Grid item paddingLeft={2}>
@@ -142,7 +147,7 @@ export default function AgreeTerms() {
 
               <Button
                 component={Link}
-                to='input-from-company'
+                to='input-form-company'
                 variant='contained'
                 sx={{
                   width: '100%',

@@ -21,6 +21,7 @@ export default function EditPersonalInfo() {
     memberName: true,
     phone: true
   });
+
   const handleChange = (event) => {
     let regExp;
     switch (event.target.name) {

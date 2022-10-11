@@ -2,6 +2,7 @@ import httpStatus from 'http-status';
 import Cookies from 'js-cookie';
 import setCookie from '../../utils/auths/setCookie';
 import {GET_PERSONAL_MEMBER} from './../../modules/members/editPersonalMemberModule';
+import logout from './../../utils/auths/logout';
 
 const rootURL = 'http://localhost:8080';
 
@@ -12,7 +13,7 @@ export function CallGetPersonalMemberInfoAPI() {
         'Content-Type': 'application/json',
         Accept: '*/*',
         'Access-Control-Allow-Origin': '*',
-        Authorization: 'Bearer ' + Cookies.get('bearer')
+        Authorization: 'Bearer ' + Cookies.get('Bearer')
       }
     }).then((res) => res.json());
     // console.log(result.data?.accessTokenExpiresIn);
@@ -32,7 +33,7 @@ export function CallPutPersonalMemberAPI() {
         'Content-Type': 'application/json',
         Accept: '*/*',
         'Access-Control-Allow-Origin': '*',
-        Authorization: 'Bearer ' + Cookies.get('bearer')
+        Authorization: 'Bearer ' + Cookies.get('Bearer')
       },
       body: JSON.stringify({
         memberId: updateForm.memberId,
@@ -42,8 +43,9 @@ export function CallPutPersonalMemberAPI() {
       })
     }).then((res) => res.json());
     if (result.status === httpStatus.OK) {
+      // logout();
       setCookie(
-        result.data?.grantType,
+        'Bearer',
         result.data?.accessToken,
         result.data?.accessTokenExpiresIn
       );
@@ -62,7 +64,7 @@ export function CallPatchPasswordAPI() {
         'Content-Type': 'application/json',
         Accept: '*/*',
         'Access-Control-Allow-Origin': '*',
-        Authorization: 'Bearer ' + Cookies.get('bearer')
+        Authorization: 'Bearer ' + Cookies.get('Bearer')
       },
       body: JSON.stringify({
         memberPw: updateForm.memberPw,
@@ -85,7 +87,7 @@ export function CallDeletePersonalMemberAPI(memberPw) {
         'Content-Type': 'application/json',
         Accept: '*/*',
         'Access-Control-Allow-Origin': '*',
-        Authorization: 'Bearer ' + Cookies.get('bearer')
+        Authorization: 'Bearer ' + Cookies.get('Bearer')
       },
       body: JSON.stringify({
         memberPw: memberPw
