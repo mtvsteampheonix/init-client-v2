@@ -93,7 +93,7 @@ const DrawerHeader = styled('div')(({theme}) => ({
   ...theme.mixins.toolbar,
   justifyContent: 'flex-end'
 }));
-export default function MypageLayout() {
+export default function PersonalMypageLayout() {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const handleDrawerToggle = () => {

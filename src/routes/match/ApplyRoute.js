@@ -12,8 +12,11 @@ export default function ApplyRoute() {
         path='apply-list/detail/:noticeCode'
         element={<ApplyListDetailPersonal />}
       />
-      <Route path='suggestion-list' element={<SuggestionListPersonal/>}/>
-      <Route path='suggestion-list/detail/:interviewSuggestionCode' element={<SuggestionListDetailPersonal/>}/>
+      <Route path='suggestion-list' element={<SuggestionListPersonal />} />
+      <Route
+        path='suggestion-list/detail/:interviewSuggestionCode'
+        element={<SuggestionListDetailPersonal />}
+      />
     </>
   );
 }
