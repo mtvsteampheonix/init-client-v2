@@ -1,5 +1,5 @@
 import httpStatus from 'http-status';
-import setCookie from '../utils/auths/setCookie';
+import setCookie from './../../utils/auths/setCookie';
 
 const rootURL = 'http://localhost:8080';
 
@@ -21,7 +21,7 @@ export function CallPostLoginAPI(loginData) {
     // console.log(result);
     if (result.status === httpStatus.OK) {
       setCookie(
-        result.data?.grantType,
+        'Bearer',
         result.data?.accessToken,
         result.data?.accessTokenExpiresIn
       );
@@ -117,6 +117,28 @@ export function CallPostSignupPersonalAPI() {
       },
       credentials: 'include',
       body: JSON.stringify({...formdata})
+    });
+    if (result.status === httpStatus.OK) {
+      return true;
+    }
+    return false;
+  };
+}
+
+export function CallPostSignupCompanyAPI() {
+  return async function postSignupCompany(dispatch, getState) {
+    const {formdata, companydata} = getState().signupReducer;
+    console.log(companydata);
+    console.log(formdata);
+    const result = await fetch(rootURL + '/auths/signup/company', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+        'Access-Control-Allow-Origin': '*'
+      },
+      credentials: 'include',
+      body: JSON.stringify({...formdata, ...companydata})
     });
     if (result.status === httpStatus.OK) {
       return true;

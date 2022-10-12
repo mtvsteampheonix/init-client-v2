@@ -11,7 +11,7 @@ import {
 import {Link} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {useState} from 'react';
-import {CallPostLoginAPI} from '../../apis/AuthAPICalls';
+import {CallPostLoginAPI} from './../../apis/auths/AuthAPICalls';
 
 function Login() {
   const [loginData, setLoginData] = useState({memberId: '', memberPw: ''});
@@ -25,7 +25,9 @@ function Login() {
 
   const handleSubmitLogin = (e) => {
     dispatch(CallPostLoginAPI(loginData)).then((res) => {
-      return res ? (window.location.href = '/') : alert('실패');
+      return res
+        ? (window.location.href = '/')
+        : alert('로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요.');
     });
   };
 
@@ -85,10 +87,10 @@ function Login() {
               }
             }}
           />
-          <FormControlLabel
+          {/* <FormControlLabel
             control={<Checkbox value='remember' />}
             label='비밀번호 저장'
-          />
+          /> */}
           <Button
             type='button'
             fullWidth

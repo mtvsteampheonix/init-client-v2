@@ -1,14 +1,14 @@
 import {Typography, Grid, TextField, Button} from '@mui/material';
 import {Link, useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
-import {SET_FORMDATA} from '../../../modules/auths/signupModule';
 import {
   CallGetDuplicateMemberIdAPI,
   CallPostSignupPersonalAPI,
   CallPutSendEmailVerifyCodeAPI,
   CallPutVerifyEmailVerifyCodeAPI
-} from '../../../apis/AuthAPICalls';
+} from '../../../apis/auths/AuthAPICalls';
 import {useState} from 'react';
+import {SET_FORMDATA} from '../../../modules/auths/signupModule';
 function InputFormPersonal() {
   const signupData = useSelector((state) => state.signupReducer);
   const [isSendEmail, setIsSendEmail] = useState(false);
@@ -39,7 +39,7 @@ function InputFormPersonal() {
         regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,16}$/;
         break;
       case 'memberName':
-        regExp = /^[가-힣a-zA-Z]+$/;
+        regExp = /^[가-힣a-zA-Z0-9]+$/;
         break;
       case 'phone':
         regExp = /^\d{3}-\d{3,4}-\d{4}$/;
@@ -47,7 +47,6 @@ function InputFormPersonal() {
       default:
         break;
     }
-
     dispatch({
       type: SET_FORMDATA,
       payload: {
@@ -95,33 +94,31 @@ function InputFormPersonal() {
           alt='titleLogo'
         />
       </Grid>
-      {verifyFormData.memberName ? (
-        <Grid item xs={12}>
+      <Grid item xs={12}>
+        {verifyFormData.memberName ? (
           <TextField
             fullWidth
-            value={signupData.memberName}
+            value={formdata.memberName}
             id='memberName'
             name='memberName'
             label='이름(실명)'
             onChange={handleChange}
             required
           />
-        </Grid>
-      ) : (
-        <Grid item xs={12}>
+        ) : (
           <TextField
             fullWidth
             error
             helperText='올바르지 않은 이름형식입니다'
-            value={signupData.memberName}
+            value={formdata.memberName}
             id='memberName'
             name='memberName'
             label='이름(실명)'
             onChange={handleChange}
             required
           />
-        </Grid>
-      )}
+        )}
+      </Grid>
       <Grid item xs={12}>
         {verifyFormData.memberId ? (
           checkId ? (
@@ -130,7 +127,7 @@ function InputFormPersonal() {
               id='memberId'
               name='memberId'
               label='아이디'
-              value={signupData.memberId}
+              value={formdata.memberId}
               onChange={handleChange}
               required
               onBlur={() => {
@@ -145,7 +142,7 @@ function InputFormPersonal() {
               id='memberId'
               name='memberId'
               label='아이디'
-              value={signupData.memberId}
+              value={formdata.memberId}
               onChange={handleChange}
               error
               helperText='중복된 아이디 입니다.'
@@ -166,7 +163,7 @@ function InputFormPersonal() {
             id='memberId'
             name='memberId'
             label='아이디'
-            value={signupData.memberId}
+            value={formdata.memberId}
             helperText='영문 혹은 숫자 4~20글자를 입력해주세요'
             onChange={handleChange}
             required
@@ -181,7 +178,7 @@ function InputFormPersonal() {
             id='memberPw'
             name='memberPw'
             label='비밀번호'
-            value={signupData.memberPw}
+            value={formdata.memberPw}
             onChange={handleChange}
             required
           />
@@ -194,7 +191,7 @@ function InputFormPersonal() {
             label='비밀번호'
             error
             onChange={handleChange}
-            value={signupData.memberPw}
+            value={formdata.memberPw}
             helperText='숫자와 영문을 섞어 8~16글자를 입력해주세요'
             required
           />
@@ -208,7 +205,7 @@ function InputFormPersonal() {
             id='memberPwReInput'
             name='memberPwReInput'
             label='비밀번호 확인'
-            value={signupData.memberPwReInput}
+            value={formdata.memberPwReInput}
             onChange={handleChange}
             required
           />
@@ -219,7 +216,7 @@ function InputFormPersonal() {
             type='password'
             id='memberPwReInput'
             name='memberPwReInput'
-            value={signupData.memberPwReInput}
+            value={formdata.memberPwReInput}
             label='비밀번호 확인'
             helperText='비밀번호가 불일치합니다.'
             onChange={handleChange}
@@ -236,7 +233,7 @@ function InputFormPersonal() {
             name='phone'
             label='휴대폰 번호'
             placeholder='010-0000-0000'
-            value={signupData.phone}
+            value={formdata.phone}
             onChange={handleChange}
             required
           />
@@ -248,9 +245,9 @@ function InputFormPersonal() {
             name='phone'
             label='휴대폰 번호'
             error
-            helperText='올바른 휴대폰번호 형식이 아닙니다.'
+            helperText='올바른 휴대폰번호 형식이 아닙니다. ( 000-0000-0000 )'
             placeholder='010-0000-0000'
-            value={signupData.phone}
+            value={formdata.phone}
             onChange={handleChange}
             required
           />
@@ -264,7 +261,7 @@ function InputFormPersonal() {
             id='email'
             name='email'
             label='이메일'
-            value={signupData.email}
+            value={formdata.email}
             onChange={handleChange}
             disabled
             required
@@ -277,7 +274,7 @@ function InputFormPersonal() {
             name='email'
             label='이메일'
             placeholder='example@example.com'
-            value={signupData.email}
+            value={formdata.email}
             onChange={handleChange}
             required
           />
@@ -290,7 +287,7 @@ function InputFormPersonal() {
             label='이메일'
             error
             helperText='올바른 이메일 양식을 입력해주세요'
-            value={signupData.email}
+            value={formdata.email}
             onChange={handleChange}
             required
           />
@@ -307,7 +304,7 @@ function InputFormPersonal() {
             variant='contained'
             sx={{height: '100%'}}
             onClick={() => {
-              if (signupData.email === '') {
+              if (formdata.email === '') {
                 return alert('이메일을 입력해주세요');
               }
               setIsSendEmail(true);

@@ -1,6 +1,7 @@
 import {Link} from 'react-router-dom';
 import {Avatar, Box, Container, Divider, Grid, Typography} from '@mui/material';
 import LogoutButton from '../../buttons/LogoutButton.js/LogoutButton';
+import getToken from '../../../utils/auths/getToken';
 
 const menuList = [
   {code: 1, menuName: '채용공고', menuUrl: '/jobsearch'},
@@ -58,7 +59,7 @@ export default function CompanyHeader() {
               <Typography>
                 어서오세요,{' '}
                 <Typography component='span' color='primary'>
-                  홍길동
+                  {getToken().memberName}
                 </Typography>
                 님
               </Typography>
