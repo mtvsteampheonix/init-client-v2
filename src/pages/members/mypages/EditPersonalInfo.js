@@ -304,7 +304,7 @@ export default function EditPersonalInfo() {
         >
           <Button
             component={Link}
-            to='../withdraw'
+            to='/mypage/withdraw'
             color='initRed'
             variant='contained'
             sx={{height: '50px'}}
