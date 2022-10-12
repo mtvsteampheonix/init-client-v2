@@ -11,15 +11,6 @@ import onlyAdmin from './../utils/routes/onlyAdmin';
 import onlyNonMember from '../utils/routes/onlyNonMember';
 import PersonalMypage from './mypages/PersonalMypage';
 import getToken from './../utils/auths/getToken';
-import WithdrawSuccess from './../pages/members/withdraws/WithdrawSuccess';
-import onlyAuths from '../utils/routes/onlyAuths';
-import onlyCompany from './../utils/routes/onlyCompany';
-import CompanyMyPage from './mypages/CompanyMyPage';
-import CompanyMypageLayout from '../layouts/mypages/CompanyMypageLayout';
-import PersonalMypageLayout from '../layouts/mypages/PersonalMypageLayout';
-import NotFound from './../pages/errors/NotFound';
-import JobSearch from '../pages/jobsearch/JobSearch';
-import jobsearchRoute from './jobsearch/JobsearchRoute';
 
 export default function IndexRoute() {
   const MypageSwitch = () => {
