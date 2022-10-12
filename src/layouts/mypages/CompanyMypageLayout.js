@@ -105,7 +105,7 @@ const DrawerHeader = styled('div')(({theme}) => ({
   justifyContent: 'flex-end'
 }));
 
-export default function MypageEntLayout() {
+export default function CompanyMypageLayout() {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const sidebarSelector = useSelector((state) => state.myPageSidebarReducer);

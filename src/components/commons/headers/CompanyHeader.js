@@ -6,7 +6,7 @@ const menuList = [
   {code: 1, menuName: '채용공고', menuUrl: '/jobsearch'},
   {code: 2, menuName: '상품', menuUrl: '/product'},
   {code: 3, menuName: '인재풀 조회', menuUrl: '/scout'},
-  {code: 4, menuName: '마이페이지', menuUrl: '/mypage/ent'}
+  {code: 4, menuName: '마이페이지', menuUrl: '/mypage'}
 ];
 
 export default function CompanyHeader() {
