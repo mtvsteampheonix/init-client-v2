@@ -5,6 +5,7 @@ import {PERSONAL_SUGGESTION_LIST} from '../../modules/match/suggestionListPerson
 import {PERSONAL_APPLY_LIST_DETAIL} from './../../modules/match/applyListDetailPersonalModule';
 import {COMPANY_APPLY_LIST} from './../../modules/match/applyListCompanyModule';
 import {APPLY_LIST_DETAIL_COMPANY} from './../../modules/match/applyListDetailCompanyModule';
+import {COMPANY_INFORMATION} from './../../modules/match/companyInformationModule';
 const rootURL = 'http://localhost:8080';
 
 export function callApplyListPersonalAPI(searchValue) {
@@ -166,4 +167,38 @@ export function callApplyListDetailCompanyAPI(applicationCode) {
       .then((data) => data.data);
     dispatch({type: APPLY_LIST_DETAIL_COMPANY, payload: result});
   };
+}
+
+export function callCompanyInformationAPI(noticeCode) {
+  return async function getCompanyInformationAPI(dispatch, getState) {
+    const result = await fetch(
+      rootURL + '/matches/company/information?noticeCode=' + noticeCode
+    )
+      .then((res) => res.json())
+      .then((data) => data.data);
+
+    dispatch({type: COMPANY_INFORMATION, payload: result});
+  };
+}
+
+export async function callInsertInterviewSuggestionAPI(
+  interviewSuggestionInfo,
+  time
+) {
+  interviewSuggestionInfo.interviewDate = time;
+  const result = await fetch(
+    rootURL + '/matches/company/interview-suggestion',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+        Authorization: 'Bearer ' + Cookies.get('Bearer')
+      },
+      body: JSON.stringify(interviewSuggestionInfo)
+    }
+  )
+    .then((res) => res.json())
+    .then((data) => data);
+  return result;
 }

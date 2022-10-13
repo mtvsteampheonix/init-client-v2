@@ -14,6 +14,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import {callApplyListPersonalAPI} from '../../apis/match/MatchAPICalls';
 import {useDispatch, useSelector} from 'react-redux';
+import getToken from './../../utils/auths/getToken';
 
 const ApplyPageHeaderComponent = styled.nav`
   display: flex;
@@ -54,7 +55,7 @@ function ApplyListPersonal() {
     setSearchValue({...searchValue, page: (value - 1) * 10});
   };
   const [searchValue, setSearchValue] = React.useState({
-    memberCode: 3,
+    memberCode: getToken().memberCode,
     page: page - 1,
     criteria: '',
     content: ''

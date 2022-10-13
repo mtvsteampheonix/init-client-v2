@@ -9,7 +9,7 @@ import {
   callNoticeFailureAPI
 } from '../../apis/match/MatchAPICalls';
 
-function EntApplyListDetails() {
+function ApplyListDetailCompany() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [loading, setLoading] = React.useState(false);
   const navigate = useNavigate();
@@ -199,7 +199,7 @@ function EntApplyListDetails() {
               variant='outlined'
               onClick={() => {
                 navigate(
-                  '/mypage/write-proposal?noticeCode=' +
+                  '/mypage/interview-suggestion?noticeCode=' +
                     noticeCode +
                     '&applicationCode=' +
                     applicationCode +
@@ -240,4 +240,4 @@ function EntApplyListDetails() {
   );
 }
 
-export default EntApplyListDetails;
+export default ApplyListDetailCompany;

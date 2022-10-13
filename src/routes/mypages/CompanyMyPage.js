@@ -4,7 +4,7 @@ import Test from './../../pages/Test';
 import Withdraw from './../../pages/members/withdraws/Withdraw';
 import ApplyListCompany from './../../pages/match/ApplyListCompany';
 import ApplyListDetailCompany from './../../pages/match/ApplyListDetailCompany';
-import WriteProposal from './../../pages/match/WriteProposal';
+import InterviewSuggestionCompany from '../../pages/match/InterviewSuggestionCompany';
 
 export default function CompanyMyPage() {
   return (
@@ -14,7 +14,10 @@ export default function CompanyMyPage() {
       <Route path='withdraw' element={<Withdraw />} />
       <Route path='apply-list' element={<ApplyListCompany />} />
       <Route path='apply-list/detail' element={<ApplyListDetailCompany />} />
-      <Route path='write-proposal' elemen={<WriteProposal />} />
+      <Route
+        path='interview-suggestion'
+        element={<InterviewSuggestionCompany />}
+      />
       <Route index element={<Test />}></Route>
     </>
   );
