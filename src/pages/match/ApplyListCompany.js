@@ -20,8 +20,8 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import {useDispatch, useSelector} from 'react-redux';
 import {
-  callApplyListCompany,
-  callNoticeFailure
+  callApplyListCompanyAPI,
+  callNoticeFailureAPI
 } from '../../apis/match/MatchAPICalls';
 import Skeleton from '@mui/material/Skeleton';
 
@@ -102,7 +102,7 @@ function ApplyListCompany() {
     setSearchValue({...searchValue, content: e.target.value});
   };
   React.useEffect(() => {
-    dispatch(callApplyListCompany(searchValue, array));
+    dispatch(callApplyListCompanyAPI(searchValue, array));
   }, [checkFilter, page, array, loading]);
   return (
     <>
@@ -210,7 +210,7 @@ function ApplyListCompany() {
               const checkMessage = window.confirm('불합격 처리 하시겠습니까?');
               if (checkMessage) {
                 setLoading(true);
-                const result = await callNoticeFailure(noticeCode, checked);
+                const result = await callNoticeFailureAPI(noticeCode, checked);
                 setLoading(false);
               }
             }}
@@ -254,7 +254,10 @@ function ApplyListCompany() {
                   onClick={() => {
                     console.log(checked);
                     navigate(
-                      '/mypage/apply-list/detail/' + apply.applicationCode
+                      '/mypage/apply-list/detail?applicationCode=' +
+                        apply.applicationCode +
+                        '&noticeCode=' +
+                        noticeCode
                     );
                   }}
                 >
