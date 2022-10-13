@@ -1,14 +1,13 @@
 import httpStatus from 'http-status';
 import Cookies from 'js-cookie';
 import setCookie from '../../utils/auths/setCookie';
-import {GET_PERSONAL_MEMBER} from './../../modules/members/editPersonalMemberModule';
-import logout from './../../utils/auths/logout';
+import {GET_EDIT_MEMBER} from '../../modules/members/editMemberModule';
 
 const rootURL = 'http://localhost:8080';
 
-export function CallGetPersonalMemberInfoAPI() {
-  return async function getPersonalMemberInfo(dispatch, getState) {
-    const result = await fetch(rootURL + '/members/personal', {
+export function CallGetMemberInfoAPI() {
+  return async function getMemberInfo(dispatch, getState) {
+    const result = await fetch(rootURL + '/members', {
       headers: {
         'Content-Type': 'application/json',
         Accept: '*/*',
@@ -19,15 +18,15 @@ export function CallGetPersonalMemberInfoAPI() {
     // console.log(result.data?.accessTokenExpiresIn);
     // console.log(result);
     if (result.status === httpStatus.OK) {
-      return dispatch({type: GET_PERSONAL_MEMBER, payload: result.data});
+      return dispatch({type: GET_EDIT_MEMBER, payload: result.data});
     }
     return false;
   };
 }
-export function CallPutPersonalMemberAPI() {
-  return async function putPersonalMemberAPI(dispatch, getState) {
-    const updateForm = getState().editPersonalMemberReducer;
-    const result = await fetch(rootURL + '/members/personal', {
+export function CallPutMemberAPI() {
+  return async function putMemberAPI(dispatch, getState) {
+    const updateForm = getState().editMemberReducer;
+    const result = await fetch(rootURL + '/members', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -57,7 +56,7 @@ export function CallPutPersonalMemberAPI() {
 
 export function CallPatchPasswordAPI() {
   return async function patchPassword(dispatch, getState) {
-    const updateForm = getState().editPersonalMemberReducer;
+    const updateForm = getState().editMemberReducer;
     const result = await fetch(rootURL + '/members/password', {
       method: 'PATCH',
       headers: {

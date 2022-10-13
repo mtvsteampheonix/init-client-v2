@@ -3,14 +3,14 @@ import {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
 import {
-  CallGetPersonalMemberInfoAPI,
-  CallPutPersonalMemberAPI
+  CallGetMemberInfoAPI,
+  CallPutMemberAPI
 } from '../../../apis/members/MemberAPICalls';
-import {SET_PERSONAL_MEMBER} from '../../../modules/members/editPersonalMemberModule';
+import {SET_EDIT_MEMBER} from '../../../modules/members/editMemberModule';
 import {CallPatchPasswordAPI} from '../../../apis/members/MemberAPICalls';
 
 export default function EditPersonalMemberInfo() {
-  const profile = useSelector((state) => state.editPersonalMemberReducer);
+  const profile = useSelector((state) => state.editMemberReducer);
   const dispatch = useDispatch();
   const [verifyFormData, setVerifyFormData] = useState({
     email: true,
@@ -45,7 +45,7 @@ export default function EditPersonalMemberInfo() {
         break;
     }
     dispatch({
-      type: SET_PERSONAL_MEMBER,
+      type: SET_EDIT_MEMBER,
       payload: {
         ...profile,
         [event.target.name]: event.target.value
@@ -59,7 +59,7 @@ export default function EditPersonalMemberInfo() {
       });
   };
   useEffect(() => {
-    dispatch(CallGetPersonalMemberInfoAPI());
+    dispatch(CallGetMemberInfoAPI());
   }, []);
 
   useEffect(() => {
@@ -76,7 +76,7 @@ export default function EditPersonalMemberInfo() {
         profile.changeMemberPw === profile.changeMemberPwReInput
     });
   }, [profile.changeMemberPw, profile.changeMemberPwReInput]);
-
+  console.log(profile);
   return (
     <>
       <Grid container spacing={5} columnSpacing={1} marginBottom={10}>
@@ -269,7 +269,7 @@ export default function EditPersonalMemberInfo() {
               fullWidth
               onClick={() => {
                 // setIsAlert(true);
-                dispatch(CallPutPersonalMemberAPI()).then((res) => {
+                dispatch(CallPutMemberAPI()).then((res) => {
                   if (res) {
                     alert('회원정보 수정에 성공하였습니다.');
                     window.location.reload();

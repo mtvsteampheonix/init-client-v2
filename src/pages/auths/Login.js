@@ -1,18 +1,10 @@
-import {
-  Avatar,
-  Checkbox,
-  FormControlLabel,
-  TextField,
-  Typography,
-  Button,
-  Box,
-  Stack
-} from '@mui/material';
+import {Avatar, TextField, Typography, Button, Box, Stack} from '@mui/material';
 import {Link} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {useState} from 'react';
 import {CallPostLoginAPI} from './../../apis/auths/AuthAPICalls';
 import httpStatus from 'http-status';
+import getToken from './../../utils/auths/getToken';
 
 function Login() {
   const [loginData, setLoginData] = useState({memberId: '', memberPw: ''});
@@ -26,12 +18,18 @@ function Login() {
 
   const handleSubmitLogin = (e) => {
     dispatch(CallPostLoginAPI(loginData)).then((res) => {
-      return res.status === httpStatus.OK
-        ? (window.location.href = '/')
-        : alert(res.message);
+      if (res.status === httpStatus.OK) {
+        if (getToken()?.pwIsTemp === 'Y') {
+          alert('비밀번호를 수정해주세요.');
+          window.location.href = '/mypage/edit-profile';
+          return;
+        }
+        window.location.href = '/';
+        return;
+      }
+      alert(res.message);
     });
   };
-
   return (
     <>
       <Box

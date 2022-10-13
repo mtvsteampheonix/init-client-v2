@@ -53,8 +53,9 @@ export default function IndexRoute() {
           <Route path='mypage' children={MypageSwitch()} />
           <Route path='test' loader={onlyAdmin} element={<Test />} />
           <Route path='withdraw-success' element={<WithdrawSuccess />} />
-          <Route path='*' element={<NotFound />} />
           <Route path='admin' loader={onlyAdmin} children={AdminRoute()} />
+
+          <Route path='*' element={<NotFound />} />
         </Route>
       </>
     )
