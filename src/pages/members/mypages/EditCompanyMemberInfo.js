@@ -7,9 +7,9 @@ import {
   CallPutPersonalMemberAPI
 } from '../../../apis/members/MemberAPICalls';
 import {SET_PERSONAL_MEMBER} from '../../../modules/members/editPersonalMemberModule';
-import {CallPatchPasswordAPI} from './../../../apis/members/MemberAPICalls';
+import {CallPatchPasswordAPI} from '../../../apis/members/MemberAPICalls';
 
-export default function EditPersonalInfo() {
+export default function EditCompanyMemberInfo() {
   const profile = useSelector((state) => state.editPersonalMemberReducer);
   const dispatch = useDispatch();
   const [verifyFormData, setVerifyFormData] = useState({
@@ -81,7 +81,7 @@ export default function EditPersonalInfo() {
     <>
       <Grid container spacing={5} columnSpacing={1} marginBottom={10}>
         <Grid item xs={12}>
-          <Typography variant='h4'>회원 정보 조회/수정</Typography>
+          <Typography variant='h4'>기업 회원 정보 조회/수정</Typography>
           <Typography variant='p'>
             회원 정보를 수정하기 위해서는 현재 비밀번호를 필수로 입력해야
             합니다.
