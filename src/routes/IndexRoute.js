@@ -18,6 +18,8 @@ import CompanyMyPage from './mypages/CompanyMyPage';
 import CompanyMypageLayout from '../layouts/mypages/CompanyMypageLayout';
 import PersonalMypageLayout from '../layouts/mypages/PersonalMypageLayout';
 import NotFound from './../pages/errors/NotFound';
+import JobSearch from '../pages/jobsearch/JobSearch';
+import jobsearchRoute from './jobsearch/JobsearchRoute';
 import AdminRoute from './admins/AdminRoute';
 import RootMain from '../pages/main/RootMain';
 
@@ -54,6 +56,10 @@ export default function IndexRoute() {
           <Route path='mypage' children={MypageSwitch()} />
           <Route path='test' loader={onlyAdmin} element={<Test />} />
           <Route path='withdraw-success' element={<WithdrawSuccess />} />
+          <Route
+            path='jobsearch'
+            children={jobsearchRoute()}
+          />
           <Route path='admin' loader={onlyAdmin} children={AdminRoute()} />
           <Route path='*' element={<NotFound />} />
         </Route>

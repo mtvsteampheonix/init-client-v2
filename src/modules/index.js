@@ -5,10 +5,13 @@ import suggestionListPersonalReducer from './match/suggestionListPersonalModule'
 import suggestionListDetailPersonalReducer from './match/suggestionListDetailPersonalModule';
 import myPageSidebarReducer from './mypage/mypageSidebarModule';
 import editMemberReducer from './members/editMemberModule';
-import signupReducer from './auths/signupModule';
+import signupReducer from './auths/signupModule'
+import registNoticeReducer from './jobsearch/RegistNoticeModule';
+import MyNoticeIdReducer from './jobsearch/MyNoticeIdModule';
 import signupplzReducer from './admins/signupplzReducer';
 import applyListCompanyReducer from './match/applyListCompanyModule';
 import applyListDetailCompanyReducer from './match/applyListDetailCompanyModule';
+
 const rootReducer = combineReducers({
   signupReducer,
   applyListPersonalReducer,
@@ -16,6 +19,8 @@ const rootReducer = combineReducers({
   applyListDetailPersonalReducer,
   suggestionListPersonalReducer,
   suggestionListDetailPersonalReducer,
+  registNoticeReducer,
+  MyNoticeIdReducer
   editMemberReducer,
   signupplzReducer,
   applyListCompanyReducer,
