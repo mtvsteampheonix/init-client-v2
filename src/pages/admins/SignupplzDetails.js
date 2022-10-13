@@ -14,7 +14,7 @@ import {
 import {useNavigate, useParams} from 'react-router-dom';
 import {styled} from '@mui/system';
 import {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {
   callGetSignupplzDetailAPI,
   callPutCompanyMemberIsActive
@@ -54,7 +54,7 @@ function DetailCard({category, children, islink}) {
 
 export default function SignupplzDetails() {
   const {memberCode} = useParams();
-  const [isAcceptance, SetIsAcceptance] = useState(false);
+  const [rejectOpen, setRejectOpen] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [details, setDetails] = useState({
     comName: '',
@@ -64,7 +64,7 @@ export default function SignupplzDetails() {
       remainingPost: 0,
       remainingInquire: 0,
       companyCodeFk: 0,
-      isActive: 'N',
+      isActive: null,
       memberCodeFk: 0
     },
     memberCodePk: '',
@@ -81,6 +81,9 @@ export default function SignupplzDetails() {
   console.log(details);
   const toggleConfirmOpen = () => {
     setConfirmOpen(!confirmOpen);
+  };
+  const toggleRejectOpen = () => {
+    setRejectOpen(!confirmOpen);
   };
   useEffect(() => {
     dispatch(callGetSignupplzDetailAPI(memberCode)).then((res) =>
@@ -159,8 +162,7 @@ export default function SignupplzDetails() {
           <Stack direction='row' spacing={5} marginTop={15}>
             <Button
               onClick={() => {
-                SetIsAcceptance(false);
-                setConfirmOpen(true);
+                setRejectOpen(true);
               }}
               fullWidth
               variant='contained'
@@ -170,7 +172,6 @@ export default function SignupplzDetails() {
             </Button>
             <Button
               onClick={() => {
-                SetIsAcceptance(true);
                 setConfirmOpen(true);
               }}
               fullWidth
@@ -180,15 +181,14 @@ export default function SignupplzDetails() {
             </Button>
           </Stack>
         </Box>
+
         <Dialog
           open={confirmOpen}
           onClose={toggleConfirmOpen}
           aria-labelledby='confirm-title'
           aria-describedby='confirm-description'
         >
-          <DialogTitle id='confirm-title'>
-            {isAcceptance ? '정말 승인하시겠습니까?' : '정말 거절하시겠습니까?'}
-          </DialogTitle>
+          <DialogTitle id='confirm-title'>정말 승인하시겠습니까?</DialogTitle>
           <DialogContent>
             <DialogContentText id='confirm-description'>
               다시 번복할 수 없습니다.
@@ -201,18 +201,53 @@ export default function SignupplzDetails() {
               }}
               variant='contained'
             >
-              거절
+              아니요
             </Button>
             <Button
               onClick={() => {
-                dispatch(callPutCompanyMemberIsActive(details));
+                dispatch(callPutCompanyMemberIsActive(details, 'Y'));
                 alert('승인 성공');
-                navigate('/');
+                navigate('/admin/company/signupplz/');
               }}
               variant='contained'
               autoFocus
             >
-              승인
+              예
+            </Button>
+          </DialogActions>
+        </Dialog>
+
+        <Dialog
+          open={rejectOpen}
+          onClose={toggleRejectOpen}
+          aria-labelledby='reject-title'
+          aria-describedby='reject-description'
+        >
+          <DialogTitle id='confirm-title'>정말 거절 하시겠습니까?</DialogTitle>
+          <DialogContent>
+            <DialogContentText id='confirm-description'>
+              다시 번복할 수 없습니다.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button
+              onClick={() => {
+                setRejectOpen(false);
+              }}
+              variant='contained'
+            >
+              아니요
+            </Button>
+            <Button
+              onClick={() => {
+                dispatch(callPutCompanyMemberIsActive(details, 'N'));
+                alert('거절 성공');
+                navigate('/admin/company/signupplz/');
+              }}
+              variant='contained'
+              autoFocus
+            >
+              예
             </Button>
           </DialogActions>
         </Dialog>
