@@ -44,7 +44,7 @@ export function callGetSignupplzDetailAPI(memberCodePk) {
   };
 }
 
-export function callPutCompanyMemberIsActive(details) {
+export function callPutCompanyMemberIsActive(details, isActive) {
   return async function putCompanyMemberIsActive(dispatch, getState) {
     const {memberCodePk} = details;
     const result = await fetch(rootURL + '/admins/member/company/is-active', {
@@ -56,7 +56,8 @@ export function callPutCompanyMemberIsActive(details) {
         Authorization: 'Bearer ' + Cookies.get('Bearer')
       },
       body: JSON.stringify({
-        memberCodePk: memberCodePk
+        memberCodePk: memberCodePk,
+        isActive: isActive
       })
     }).then((res) => res.json());
     if (result.status === httpStatus.OK) {

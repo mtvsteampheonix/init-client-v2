@@ -147,3 +147,21 @@ export function CallPostSignupCompanyAPI() {
     return false;
   };
 }
+
+export function CallPutResetPasswordAPI(form) {
+  return async function puResetPassword() {
+    const result = await fetch(rootURL + '/auths/reset-password', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+        'Access-Control-Allow-Origin': '*'
+      },
+      body: JSON.stringify(form)
+    }).then((res) => res.json());
+    if (result.status === httpStatus.OK) {
+      return true;
+    }
+    return false;
+  };
+}

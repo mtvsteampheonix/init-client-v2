@@ -4,13 +4,15 @@ import applyListPersonalReducer from './match/applyListPersonalModule';
 import suggestionListPersonalReducer from './match/suggestionListPersonalModule';
 import suggestionListDetailPersonalReducer from './match/suggestionListDetailPersonalModule';
 import myPageSidebarReducer from './mypage/mypageSidebarModule';
-import editPersonalMemberReducer from './members/editPersonalMemberModule';
+import editMemberReducer from './members/editMemberModule';
 import signupReducer from './auths/signupModule';
+import registNoticeReducer from './jobsearch/RegistNoticeModule';
+import MyNoticeIdReducer from './jobsearch/MyNoticeIdModule';
 import signupplzReducer from './admins/signupplzReducer';
 import applyListCompanyReducer from './match/applyListCompanyModule';
 import applyListDetailCompanyReducer from './match/applyListDetailCompanyModule';
 import companyInformationReducer from './match/companyInformationModule';
-import getTimeReducer from './match/getTimeModule';
+
 const rootReducer = combineReducers({
   signupReducer,
   applyListPersonalReducer,
@@ -18,12 +20,13 @@ const rootReducer = combineReducers({
   applyListDetailPersonalReducer,
   suggestionListPersonalReducer,
   suggestionListDetailPersonalReducer,
-  editPersonalMemberReducer,
+  registNoticeReducer,
+  MyNoticeIdReducer,
+  editMemberReducer,
   signupplzReducer,
   applyListCompanyReducer,
   applyListDetailCompanyReducer,
-  companyInformationReducer,
-  getTimeReducer
+  companyInformationReducer
 });
 
 export default rootReducer;
