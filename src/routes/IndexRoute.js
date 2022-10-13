@@ -18,6 +18,7 @@ import CompanyMyPage from './mypages/CompanyMyPage';
 import CompanyMypageLayout from '../layouts/mypages/CompanyMypageLayout';
 import PersonalMypageLayout from '../layouts/mypages/PersonalMypageLayout';
 import NotFound from './../pages/errors/NotFound';
+import AdminRoute from './admins/AdminRoute';
 
 export default function IndexRoute() {
   const MypageSwitch = () => {
@@ -38,7 +39,6 @@ export default function IndexRoute() {
             children={CompanyMyPage()}
           />
         );
-
       default:
         return null;
     }
@@ -54,6 +54,7 @@ export default function IndexRoute() {
           <Route path='test' loader={onlyAdmin} element={<Test />} />
           <Route path='withdraw-success' element={<WithdrawSuccess />} />
           <Route path='*' element={<NotFound />} />
+          <Route path='admin' loader={onlyAdmin} children={AdminRoute()} />
         </Route>
       </>
     )
