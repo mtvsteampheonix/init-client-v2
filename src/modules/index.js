@@ -8,6 +8,7 @@ import editPersonalMemberReducer from './members/editPersonalMemberModule';
 import signupReducer from './auths/signupModule';
 import signupplzReducer from './admins/signupplzReducer';
 import applyListCompanyReducer from './match/applyListCompanyModule';
+import applyListDetailCompanyReducer from './match/applyListDetailCompanyModule';
 const rootReducer = combineReducers({
   signupReducer,
   applyListPersonalReducer,
@@ -17,7 +18,8 @@ const rootReducer = combineReducers({
   suggestionListDetailPersonalReducer,
   editPersonalMemberReducer,
   signupplzReducer,
-  applyListCompanyReducer
+  applyListCompanyReducer,
+  applyListDetailCompanyReducer
 });
 
 export default rootReducer;

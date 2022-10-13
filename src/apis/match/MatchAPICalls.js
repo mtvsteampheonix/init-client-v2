@@ -4,6 +4,7 @@ import {PERSONAL_SUGGESTION_LIST_DETAIL} from '../../modules/match/suggestionLis
 import {PERSONAL_SUGGESTION_LIST} from '../../modules/match/suggestionListPersonalModule';
 import {PERSONAL_APPLY_LIST_DETAIL} from './../../modules/match/applyListDetailPersonalModule';
 import {COMPANY_APPLY_LIST} from './../../modules/match/applyListCompanyModule';
+import {APPLY_LIST_DETAIL_COMPANY} from './../../modules/match/applyListDetailCompanyModule';
 const rootURL = 'http://localhost:8080';
 
 export function callApplyListPersonalAPI(searchValue) {
@@ -95,8 +96,8 @@ export async function callUpdateInterviewSuggestionResponseAPI(
   }
 }
 
-export function callApplyListCompany(searchValue, array) {
-  return async function getApplyListCompany(dispatch, getState) {
+export function callApplyListCompanyAPI(searchValue, array) {
+  return async function getApplyListCompanyAPI(dispatch, getState) {
     let condition = '&';
     array.forEach((element, index, array) => {
       if (index === array.length - 1) {
@@ -137,7 +138,7 @@ export function callApplyListCompany(searchValue, array) {
   };
 }
 
-export async function callNoticeFailure(noticeCode, appicationCodeList) {
+export async function callNoticeFailureAPI(noticeCode, appicationCodeList) {
   const requestJson = {
     noticeCode: noticeCode,
     applicationCodeList: appicationCodeList
@@ -152,4 +153,17 @@ export async function callNoticeFailure(noticeCode, appicationCodeList) {
     body: JSON.stringify(requestJson)
   }).then((res) => res.json());
   console.log(result);
+}
+
+export function callApplyListDetailCompanyAPI(applicationCode) {
+  return async function getApplyListCompanyDetailAPI(dispatch, getState) {
+    const result = await fetch(
+      rootURL +
+        '/matches/company/apply-detail?applicationCode=' +
+        applicationCode
+    )
+      .then((res) => res.json())
+      .then((data) => data.data);
+    dispatch({type: APPLY_LIST_DETAIL_COMPANY, payload: result});
+  };
 }
