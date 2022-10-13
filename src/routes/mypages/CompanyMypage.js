@@ -1,12 +1,12 @@
 import {Route} from 'react-router-dom';
 import EditCompanyMemberInfo from '../../pages/members/mypages/EditCompanyMemberInfo';
-import Test from './../../pages/Test';
-import Withdraw from './../../pages/members/withdraws/Withdraw';
-import ApplyListCompany from './../../pages/match/ApplyListCompany';
-import ApplyListDetailCompany from './../../pages/match/ApplyListDetailCompany';
+import Test from '../../pages/Test';
+import Withdraw from '../../pages/members/withdraws/Withdraw';
+import ApplyListCompany from '../../pages/match/ApplyListCompany';
+import ApplyListDetailCompany from '../../pages/match/ApplyListDetailCompany';
 import InterviewSuggestionCompany from '../../pages/match/InterviewSuggestionCompany';
 
-export default function CompanyMyPage() {
+export default function CompanyMypage() {
   return (
     <>
       <Route index element={<Test />}></Route>;
