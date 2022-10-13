@@ -38,6 +38,7 @@ function Login() {
         alignContent='center'
         flexDirection='column'
         marginTop={10}
+        marginBottom={10}
         maxWidth={600}
         marginLeft='auto'
         marginRight='auto'

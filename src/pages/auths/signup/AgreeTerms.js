@@ -98,89 +98,93 @@ export default function AgreeTerms() {
     </Grid>
   );
   return (
-    <Container maxWidth='md' disableGutters>
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          flexDirection: 'column'
-        }}
-      >
-        <Avatar
-          sx={{width: 200, height: 200}}
-          src='/logo/titleLogo.svg'
-          alt='titlelogo'
-        ></Avatar>
-        <Typography component='h1' variant='h5'>
-          약관 동의
-        </Typography>
-      </Box>
-      <Stack marginTop={5}>
-        <FormGroup>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={
-                  checked.service && checked.advertising && checked.personalInfo
-                }
-                onChange={AllcheckHandleChange}
-              />
-            }
-            label='Init필수동의 항목 및 개인정보 수집 및 이용 동의(선택), 광고성 정보 수신 동의(선택)에 일괄 동의합니다.'
-          />
-          {childrenCheckBox}
-        </FormGroup>
-        <Stack direction='row' spacing={5} height={70} margin={5}>
-          {isCheckedRequired() ? (
-            <>
-              <Button
-                component={Link}
-                to='input-form-personal'
-                variant='contained'
-                sx={{
-                  width: '100%',
-                  height: '100%'
-                }}
-              >
-                개인 회원
-              </Button>
+    <Box marginTop={10} marginBottom={10}>
+      <Container maxWidth='md' disableGutters>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            flexDirection: 'column'
+          }}
+        >
+          <Avatar
+            sx={{width: 200, height: 200}}
+            src='/logo/titleLogo.svg'
+            alt='titlelogo'
+          ></Avatar>
+          <Typography component='h1' variant='h5'>
+            약관 동의
+          </Typography>
+        </Box>
+        <Stack marginTop={5}>
+          <FormGroup>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={
+                    checked.service &&
+                    checked.advertising &&
+                    checked.personalInfo
+                  }
+                  onChange={AllcheckHandleChange}
+                />
+              }
+              label='Init필수동의 항목 및 개인정보 수집 및 이용 동의(선택), 광고성 정보 수신 동의(선택)에 일괄 동의합니다.'
+            />
+            {childrenCheckBox}
+          </FormGroup>
+          <Stack direction='row' spacing={5} height={70} margin={5}>
+            {isCheckedRequired() ? (
+              <>
+                <Button
+                  component={Link}
+                  to='input-form-personal'
+                  variant='contained'
+                  sx={{
+                    width: '100%',
+                    height: '100%'
+                  }}
+                >
+                  개인 회원
+                </Button>
 
-              <Button
-                component={Link}
-                to='input-form-company'
-                variant='contained'
-                sx={{
-                  width: '100%',
-                  height: '100%'
-                }}
-              >
-                기업 회원
-              </Button>
-            </>
-          ) : (
-            <>
-              <Button
-                variant='contained'
-                sx={{
-                  width: '100%'
-                }}
-                disabled
-              >
-                필수 항목을 모두 동의 해주세요
-              </Button>
-              <Button
-                variant='contained'
-                sx={{
-                  width: '100%'
-                }}
-                disabled
-              >
-                필수 항목을 모두 동의 해주세요
-              </Button>
-            </>
-          )}
+                <Button
+                  component={Link}
+                  to='input-form-company'
+                  variant='contained'
+                  sx={{
+                    width: '100%',
+                    height: '100%'
+                  }}
+                >
+                  기업 회원
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button
+                  variant='contained'
+                  sx={{
+                    width: '100%'
+                  }}
+                  disabled
+                >
+                  필수 항목을 모두 동의 해주세요
+                </Button>
+                <Button
+                  variant='contained'
+                  sx={{
+                    width: '100%'
+                  }}
+                  disabled
+                >
+                  필수 항목을 모두 동의 해주세요
+                </Button>
+              </>
+            )}
+          </Stack>
         </Stack>
-      </Stack>
-    </Container>
+      </Container>
+    </Box>
   );
 }
