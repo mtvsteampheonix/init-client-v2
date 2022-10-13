@@ -19,10 +19,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import {
-  CallDesiredJobListAPI,
-  CallFindResumeAPI,
-  CallResumeUpdateAPI,
-  CallSkillListAPI
+  CallDeleteResumeAPI,
+  CallFindResumeAPI
 } from '../../apis/resume/ResumeAPICalls';
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -74,30 +72,22 @@ export const FormContainer = styled.form`
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-function ResumeEdit() {
+function ResumeDetail() {
   const navigate = useNavigate();
   const location = useLocation();
   const {register, handleSubmit, setValue} = useForm();
   const dispatch = useDispatch();
 
-  const resumeCode = useParams().id;
-
   const resumeInfo = useSelector(
     (state) => state.resumeCombineReducer.resumeFindReducer
   );
-
   const selectedList = useSelector(
     (state) => state.resumeCombineReducer.resumeSelectReducer
   );
 
-  const skillList = useSelector(
-    (state) => state.resumeCombineReducer.resumeSkillReducer
-  );
-  const desiredJobList = useSelector(
-    (state) => state.resumeCombineReducer.resumeDesiredJobReducer
-  );
-
   const [open, setOpen] = React.useState(false);
+
+  const resumeCode = useParams().resumeCode;
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -108,8 +98,16 @@ function ResumeEdit() {
 
   const handleCloseYesHandler = () => {
     setOpen(false);
+    CallDeleteResumeAPI(resumeCode);
     navigate('/resume');
   };
+
+  React.useEffect(() => {
+    dispatch(CallFindResumeAPI(resumeCode));
+  }, []);
+
+  console.log('resumeInfo');
+  console.log(resumeInfo);
 
   if (resumeInfo) {
     selectedList.career = resumeInfo.careerInfoList.length > 0 ? true : false;
@@ -125,34 +123,7 @@ function ResumeEdit() {
       resumeInfo.qualificationInfoList.length > 0 ? true : false;
   }
 
-  React.useEffect(() => {
-    dispatch(CallFindResumeAPI(resumeCode));
-    dispatch(CallSkillListAPI());
-    dispatch(CallDesiredJobListAPI());
-  }, []);
-
-  const onSubmitHandler = handleSubmit(async (data) => {
-    console.log(data);
-
-    const body = JSON.stringify({
-      // memberCode: 3,
-      imageCode: 999,
-      title: data.title,
-      name: data.name,
-      gender: data.gender,
-      birthday: data.birthday,
-      zipCode: data.zipCode,
-      address:
-        data.mainAddress + '/' + data.detailAddress + '/' + data.alphaAddress,
-      housePhone: data.phone,
-      mobilePhone: data.mobilePhone,
-      email: data.emailFront + '@' + data.emailBack,
-      isOpenedPicture: data.isOpenedPhoto ? 'Y' : 'N'
-    });
-    CallResumeUpdateAPI(body, resumeCode);
-    navigate('/resume');
-  });
-
+  console.log(selectedList);
   return (
     <OutletContainer>
       <BackButtonContainter>
@@ -164,48 +135,59 @@ function ResumeEdit() {
           뒤로가기
         </StyledButton>
       </BackButtonContainter>
-      <FormContainer onSubmit={onSubmitHandler}>
+      <FormContainer
+        onSubmit={handleSubmit((data) => {
+          console.log(data);
+        })}
+      >
         {/* 이력서 메인 */}
         <MainResume
           register={register}
           setValue={setValue}
-          isReadOnly={false}
+          isReadOnly={true}
           resumeInfo={resumeInfo}
+          isUpdate={true}
         />
         {/* 학력사항 */}
         <SchoolAbility
           register={register}
           setValue={setValue}
-          isReadOnly={false}
           resumeInfo={resumeInfo}
+          isReadOnly={true}
         />
         {/* 스킬 스택 */}
-        <AutoSelect
-          keyName={'skillStack'}
-          title={'스킬 스택'}
-          list={selectedList}
-          register={register}
-          setValue={setValue}
-          isReadOnly={true}
-          resumeInfo={resumeInfo}
-        />
+        {resumeInfo && resumeInfo.skillInfoList && (
+          <AutoSelect
+            keyName={'skillStack'}
+            title={'스킬 스택'}
+            list={resumeInfo.skillInfoList}
+            register={register}
+            setValue={setValue}
+            isReadOnly={true}
+            resumeInfo={resumeInfo}
+          />
+        )}
+
         {/* 희망 직무 */}
-        <AutoSelect
-          keyName={'desiredJob'}
-          title={'희망 직무'}
-          list={selectedList}
-          register={register}
-          setValue={setValue}
-          isReadOnly={true}
-          resumeInfo={resumeInfo}
-        />
+        {resumeInfo && resumeInfo.desiredJobInfoList && (
+          <AutoSelect
+            keyName={'desiredJob'}
+            title={'희망 직무'}
+            list={resumeInfo.desiredJobInfoList}
+            register={register}
+            setValue={setValue}
+            isReadOnly={true}
+            resumeInfo={resumeInfo}
+          />
+        )}
+
         {/* 경력사항 */}
         {selectedList.career && (
           <CareerComponent
             register={register}
             setValue={setValue}
             resumeInfo={resumeInfo}
-            isReadOnly={false}
+            isReadOnly={true}
           />
         )}
         {/* 주요활동 및 수상경력 */}
@@ -214,7 +196,7 @@ function ResumeEdit() {
             register={register}
             setValue={setValue}
             resumeInfo={resumeInfo}
-            isReadOnly={false}
+            isReadOnly={true}
           />
         )}
         {/* 해외경험 */}
@@ -223,7 +205,7 @@ function ResumeEdit() {
             register={register}
             setValue={setValue}
             resumeInfo={resumeInfo}
-            isReadOnly={false}
+            isReadOnly={true}
           />
         )}
         {/* 외국어 능력 */}
@@ -232,7 +214,7 @@ function ResumeEdit() {
             register={register}
             setValue={setValue}
             resumeInfo={resumeInfo}
-            isReadOnly={false}
+            isReadOnly={true}
           />
         )}
         {/* 직업훈련 이수이력 */}
@@ -241,7 +223,7 @@ function ResumeEdit() {
             register={register}
             setValue={setValue}
             resumeInfo={resumeInfo}
-            isReadOnly={false}
+            isReadOnly={true}
           />
         )}
         {/* 보유 자격 면허 */}
@@ -250,43 +232,23 @@ function ResumeEdit() {
             register={register}
             setValue={setValue}
             resumeInfo={resumeInfo}
-            isReadOnly={false}
+            isReadOnly={true}
           />
         )}
-        <Button
-          variant='contained'
-          size='large'
-          type='submit'
-          // onClick={handleClickOpen}
-        >
-          수정 완료
-        </Button>
-        <Dialog
-          open={open}
-          onClose={handleClose}
-          aria-labelledby='alert-dialog-title'
-          aria-describedby='alert-dialog-description'
-        >
-          <DialogTitle id='alert-dialog-title'>
-            {'수정하시겠습니까?'}
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText id='alert-dialog-description'>
-              해당 이력서 정보가 수정됩니다.
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button type='submit' onClick={handleCloseYesHandler}>
-              예
-            </Button>
-            <Button onClick={handleClose} autoFocus>
-              아니오
-            </Button>
-          </DialogActions>
-        </Dialog>
+        <div style={{display: 'flex', flexDirection: 'row', gap: '30px'}}>
+          <Button
+            variant='contained'
+            size='large'
+            /* type='submit' */ onClick={() => {
+              navigate(-1);
+            }}
+          >
+            돌아가기
+          </Button>
+        </div>
       </FormContainer>
     </OutletContainer>
   );
 }
 
-export default ResumeEdit;
+export default ResumeDetail;

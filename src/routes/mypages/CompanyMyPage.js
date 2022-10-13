@@ -12,8 +12,8 @@ export default function CompanyMyPage() {
       <Route index element={<Test />}></Route>;
       <Route path='edit-profile' element={<EditCompanyMemberInfo />} />
       <Route path='withdraw' element={<Withdraw />} />
-      <Route path='apply-list/:noticeCode' element={<ApplyListCompany />} />
       <Route path='apply-list/detail' element={<ApplyListDetailCompany />} />
+      <Route path='apply-list/:noticeCode' element={<ApplyListCompany />} />
       <Route
         path='interview-suggestion'
         element={<InterviewSuggestionCompany />}

@@ -23,6 +23,7 @@ export const RESUME_FOREIGNLANGUAGE = 'resume/FOREIGNLANGUAGE';
 export const RESUME_QUALIFICATION = 'resume/QUALIFICATION';
 export const RESUME_FINDALL = 'resume/FINDALL';
 export const RESUME_FINDRESUMECODE = 'resume/FINDRESUMECODE';
+export const RESUME_ADMINLIST = 'resume/ADMINLIST';
 
 // Action function
 const {
@@ -52,6 +53,10 @@ const {
 const {
   resume: {findresumecode}
 } = createActions({[RESUME_FINDRESUMECODE]: () => {}});
+
+const {
+  resume: {adminlist}
+} = createActions({[RESUME_ADMINLIST]: () => {}});
 
 // reducer
 const resumeSelectReducer = handleActions(
@@ -103,6 +108,13 @@ const resumeFindCodeReducer = handleActions(
   listInitState
 );
 
+const resumeAdminListReducer = handleActions(
+  {
+    [RESUME_ADMINLIST]: (state, {payload}) => payload
+  },
+  listInitState
+);
+
 export const resumeCombineReducer = combineReducers({
   resumeSelectReducer,
   resumeSkillReducer,
@@ -110,5 +122,6 @@ export const resumeCombineReducer = combineReducers({
   resumeForeignLanguageReducer,
   resumeQualificationReducer,
   resumeFindReducer,
-  resumeFindCodeReducer
+  resumeFindCodeReducer,
+  resumeAdminListReducer
 });

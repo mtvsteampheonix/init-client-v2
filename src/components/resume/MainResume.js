@@ -713,6 +713,19 @@ function MainResume({
       isOpenedPhoto:
         resumeInfo && resumeInfo.isOpenedPicture === 'Y' ? true : false
     });
+    setValue('title', title);
+    setValue('name', name);
+    setValue('gender', gender);
+    setValue('birthday', birthday);
+    setValue('zipCode', zipCode);
+    setValue('mainAddress', mainAddress);
+    setValue('detailAddress', detailAddress);
+    setValue('alphaAddress', alphaAddress);
+    setValue('phone', phone);
+    setValue('mobilePhone', mobilePhone);
+    setValue('emailFront', emailFront);
+    setValue('emailBack', emailBack);
+    setValue('isOpenedPhoto', isOpenedPhoto);
   }, [resumeInfo]);
 
   return (

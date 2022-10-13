@@ -237,7 +237,11 @@ export function Manage() {
           <StyledButton
             onClick={() => {
               // setResumeCount(resumeCount + 1);
-              navigate('/resume/add');
+              if (resumeList.length > 5) {
+                alert('이력서는 5개까지만 생성할 수 있습니다.');
+              } else {
+                navigate('/resume/add');
+              }
             }}
           >
             새 이력서 추가
