@@ -53,7 +53,8 @@ const FormGroup = styled.div`
 `;
 
 function ApplyListCompany() {
-  const noticeCode = useParams.noticeCode;
+  const noticeCode = useParams().noticeCode;
+  console.log(noticeCode);
   const dispatch = useDispatch();
   const applyListCompany = useSelector(
     (state) => state.applyListCompanyReducer

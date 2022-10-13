@@ -1,5 +1,6 @@
 import Cookies from 'js-cookie';
 import {
+  RESUME_ADMINLIST,
   RESUME_DESIREDJOB,
   RESUME_FINDALL,
   RESUME_FINDRESUMECODE,
@@ -19,7 +20,7 @@ export function CallInsertResumeAPI(body) {
       'Content-Type': 'application/json',
       Accept: '*/*',
       'Access-Control-Allow-Origin': '*',
-      Authorization: 'Bearer ' + Cookies.get('bearer')
+      Authorization: 'Bearer ' + Cookies.get('Bearer')
       // 'Bearer ' +
       // 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGhzIjpbIlJPTEVfQURNSU4iXSwiZXhwIjoxNjY1MTAwNzMzfQ.tnismZbl4K_4pqYD_k-MWDvt9nmH1PLsMSPlv5AMvlfvrLXiNwlzcfUYxevdVCviRt7_LfLF9lG3l_ELMlC_7g'
     },
@@ -37,7 +38,7 @@ export const CallSkillListAPI = () => {
         'Content-Type': 'application/json',
         Accept: '*/*',
         'Access-Control-Allow-Origin': '*',
-        Authorization: 'Bearer ' + Cookies.get('bearer')
+        Authorization: 'Bearer ' + Cookies.get('Bearer')
       }
     }).then((response) => response.json());
 
@@ -57,7 +58,7 @@ export const CallDesiredJobListAPI = () => {
         'Content-Type': 'application/json',
         Accept: '*/*',
         'Access-Control-Allow-Origin': '*',
-        Authorization: 'Bearer ' + Cookies.get('bearer')
+        Authorization: 'Bearer ' + Cookies.get('Bearer')
       }
     }).then((response) => response.json());
 
@@ -76,7 +77,7 @@ export const CallForeignLanguageTestAPI = () => {
         'Content-Type': 'application/json',
         Accept: '*/*',
         'Access-Control-Allow-Origin': '*',
-        Authorization: 'Bearer ' + Cookies.get('bearer')
+        Authorization: 'Bearer ' + Cookies.get('Bearer')
       }
     }).then((response) => response.json());
 
@@ -95,7 +96,7 @@ export const CallQualificationListAPI = () => {
         'Content-Type': 'application/json',
         Accept: '*/*',
         'Access-Control-Allow-Origin': '*',
-        Authorization: 'Bearer ' + Cookies.get('bearer')
+        Authorization: 'Bearer ' + Cookies.get('Bearer')
       }
     }).then((response) => response.json());
 
@@ -114,7 +115,7 @@ export const CallFindResumeAPI = (resumeCode) => {
         'Content-Type': 'application/json',
         Accept: '*/*',
         'Access-Control-Allow-Origin': '*',
-        Authorization: 'Bearer ' + Cookies.get('bearer')
+        Authorization: 'Bearer ' + Cookies.get('Bearer')
       }
     }).then((response) => response.json());
 
@@ -133,7 +134,7 @@ export const CallResumeCodeAPI = () => {
         'Content-Type': 'application/json',
         Accept: '*/*',
         'Access-Control-Allow-Origin': '*',
-        Authorization: 'Bearer ' + Cookies.get('bearer')
+        Authorization: 'Bearer ' + Cookies.get('Bearer')
       }
     }).then((response) => response.json());
 
@@ -152,7 +153,41 @@ export function CallDeleteResumeAPI(resumeCode) {
       'Content-Type': 'application/json',
       Accept: '*/*',
       'Access-Control-Allow-Origin': '*',
-      Authorization: 'Bearer ' + Cookies.get('bearer')
+      Authorization: 'Bearer ' + Cookies.get('Bearer')
     }
+  }).then((response) => console.log(response.json()));
+}
+
+export const callGetResumeAdminAPI = () => {
+  const requestURL = prefixURL + '/resumes/admin';
+  return async (dispatch, getState) => {
+    const result = await fetch(requestURL, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+        'Access-Control-Allow-Origin': '*',
+        Authorization: 'Bearer ' + Cookies.get('Bearer')
+      }
+    }).then((response) => response.json());
+
+    console.log(result.data);
+
+    dispatch({type: RESUME_ADMINLIST, payload: result.data});
+  };
+};
+
+export function CallResumeUpdateAPI(body, resumeCode) {
+  const requestURL = prefixURL + '/resumes/' + resumeCode;
+
+  fetch(requestURL, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: '*/*',
+      'Access-Control-Allow-Origin': '*',
+      Authorization: 'Bearer ' + Cookies.get('Bearer')
+    },
+    body: body
   }).then((response) => console.log(response.json()));
 }

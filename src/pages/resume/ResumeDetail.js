@@ -156,7 +156,7 @@ function ResumeDetail() {
           isReadOnly={true}
         />
         {/* 스킬 스택 */}
-        {resumeInfo.skillInfoList && (
+        {resumeInfo && resumeInfo.skillInfoList && (
           <AutoSelect
             keyName={'skillStack'}
             title={'스킬 스택'}
@@ -169,7 +169,7 @@ function ResumeDetail() {
         )}
 
         {/* 희망 직무 */}
-        {resumeInfo.desiredJobInfoList && (
+        {resumeInfo && resumeInfo.desiredJobInfoList && (
           <AutoSelect
             keyName={'desiredJob'}
             title={'희망 직무'}
