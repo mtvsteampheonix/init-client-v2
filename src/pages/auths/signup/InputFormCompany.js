@@ -140,6 +140,7 @@ export default function InputFormCompany() {
                 id='comUrl'
                 name='comUrl'
                 label='홈페이지 주소'
+                placeholder='http://example.com'
                 onChange={handleCompanyChange}
               />
             </Grid>
