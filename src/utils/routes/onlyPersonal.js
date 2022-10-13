@@ -1,7 +1,5 @@
-import {redirect} from 'react-router-dom';
-import getToken from '../auths/getToken';
+import getToken from './../auths/getToken';
 
 export default function onlyPersonal() {
-  // console.log(getToken().auths);
-  return getToken().auths === 'ROLE_PERSONAL' ? null : redirect('/');
+  return getToken()?.auths === 'ROLE_PERSONAL' ? null : redirect('/');
 }

@@ -7,5 +7,5 @@ export default function setCookie(key, value, expiredays) {
     encodeURIComponent(value) +
     ';expires=' +
     today.toUTCString() +
-    ';path="/"';
+    ';path=/;';
 }
