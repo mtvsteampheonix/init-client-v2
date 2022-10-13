@@ -19,6 +19,7 @@ import CompanyMypageLayout from '../layouts/mypages/CompanyMypageLayout';
 import PersonalMypageLayout from '../layouts/mypages/PersonalMypageLayout';
 import NotFound from './../pages/errors/NotFound';
 import AdminRoute from './admins/AdminRoute';
+import RootMain from '../pages/main/RootMain';
 
 export default function IndexRoute() {
   const MypageSwitch = () => {
@@ -48,13 +49,12 @@ export default function IndexRoute() {
     createRoutesFromElements(
       <>
         <Route path='' element={<IndexLayout />}>
-          <Route index element={<Test />} />
+          <Route index element={<RootMain />} />
           <Route path='auths' loader={onlyNonMember} children={AuthsRoute()} />
           <Route path='mypage' children={MypageSwitch()} />
           <Route path='test' loader={onlyAdmin} element={<Test />} />
           <Route path='withdraw-success' element={<WithdrawSuccess />} />
           <Route path='admin' loader={onlyAdmin} children={AdminRoute()} />
-
           <Route path='*' element={<NotFound />} />
         </Route>
       </>
