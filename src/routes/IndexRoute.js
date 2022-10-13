@@ -20,6 +20,8 @@ import PersonalMypageLayout from '../layouts/mypages/PersonalMypageLayout';
 import NotFound from './../pages/errors/NotFound';
 import JobSearch from '../pages/jobsearch/JobSearch';
 import jobsearchRoute from './jobsearch/JobsearchRoute';
+import AdminRoute from './admins/AdminRoute';
+import RootMain from '../pages/main/RootMain';
 
 export default function IndexRoute() {
   const MypageSwitch = () => {
@@ -40,7 +42,6 @@ export default function IndexRoute() {
             children={CompanyMyPage()}
           />
         );
-
       default:
         return null;
     }
@@ -50,7 +51,7 @@ export default function IndexRoute() {
     createRoutesFromElements(
       <>
         <Route path='' element={<IndexLayout />}>
-          <Route index element={<Test />} />
+          <Route index element={<RootMain />} />
           <Route path='auths' loader={onlyNonMember} children={AuthsRoute()} />
           <Route path='mypage' children={MypageSwitch()} />
           <Route path='test' loader={onlyAdmin} element={<Test />} />
@@ -59,6 +60,7 @@ export default function IndexRoute() {
             path='jobsearch'
             children={jobsearchRoute()}
           />
+          <Route path='admin' loader={onlyAdmin} children={AdminRoute()} />
           <Route path='*' element={<NotFound />} />
         </Route>
       </>

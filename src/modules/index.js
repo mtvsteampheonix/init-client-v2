@@ -4,10 +4,13 @@ import applyListPersonalReducer from './match/applyListPersonalModule';
 import suggestionListPersonalReducer from './match/suggestionListPersonalModule';
 import suggestionListDetailPersonalReducer from './match/suggestionListDetailPersonalModule';
 import myPageSidebarReducer from './mypage/mypageSidebarModule';
-import editPersonalMemberReducer from './members/editPersonalMemberModule';
-import signupReducer from './auths/signupModule';
+import editMemberReducer from './members/editMemberModule';
+import signupReducer from './auths/signupModule'
 import registNoticeReducer from './jobsearch/RegistNoticeModule';
 import MyNoticeIdReducer from './jobsearch/MyNoticeIdModule';
+import signupplzReducer from './admins/signupplzReducer';
+import applyListCompanyReducer from './match/applyListCompanyModule';
+import applyListDetailCompanyReducer from './match/applyListDetailCompanyModule';
 
 const rootReducer = combineReducers({
   signupReducer,
@@ -16,9 +19,12 @@ const rootReducer = combineReducers({
   applyListDetailPersonalReducer,
   suggestionListPersonalReducer,
   suggestionListDetailPersonalReducer,
-  editPersonalMemberReducer,
   registNoticeReducer,
   MyNoticeIdReducer
+  editMemberReducer,
+  signupplzReducer,
+  applyListCompanyReducer,
+  applyListDetailCompanyReducer
 });
 
 export default rootReducer;

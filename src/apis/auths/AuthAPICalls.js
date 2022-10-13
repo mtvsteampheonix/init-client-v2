@@ -25,10 +25,11 @@ export function CallPostLoginAPI(loginData) {
         result.data?.accessToken,
         result.data?.accessTokenExpiresIn
       );
-      return true;
+      return result;
     }
     setCookie('Bearer', '', 0);
-    return false;
+    console.log(result);
+    return result;
   };
 }
 
@@ -140,6 +141,24 @@ export function CallPostSignupCompanyAPI() {
       credentials: 'include',
       body: JSON.stringify({...formdata, ...companydata})
     });
+    if (result.status === httpStatus.OK) {
+      return true;
+    }
+    return false;
+  };
+}
+
+export function CallPutResetPasswordAPI(form) {
+  return async function puResetPassword() {
+    const result = await fetch(rootURL + '/auths/reset-password', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+        'Access-Control-Allow-Origin': '*'
+      },
+      body: JSON.stringify(form)
+    }).then((res) => res.json());
     if (result.status === httpStatus.OK) {
       return true;
     }

@@ -3,14 +3,14 @@ import {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
 import {
-  CallGetPersonalMemberInfoAPI,
-  CallPutPersonalMemberAPI
+  CallGetMemberInfoAPI,
+  CallPutMemberAPI
 } from '../../../apis/members/MemberAPICalls';
-import {SET_PERSONAL_MEMBER} from '../../../modules/members/editPersonalMemberModule';
-import {CallPatchPasswordAPI} from './../../../apis/members/MemberAPICalls';
+import {SET_EDIT_MEMBER} from '../../../modules/members/editMemberModule';
+import {CallPatchPasswordAPI} from '../../../apis/members/MemberAPICalls';
 
-export default function EditPersonalInfo() {
-  const profile = useSelector((state) => state.editPersonalMemberReducer);
+export default function EditCompanyMemberInfo() {
+  const profile = useSelector((state) => state.editMemberReducer);
   const dispatch = useDispatch();
   const [verifyFormData, setVerifyFormData] = useState({
     email: true,
@@ -45,7 +45,7 @@ export default function EditPersonalInfo() {
         break;
     }
     dispatch({
-      type: SET_PERSONAL_MEMBER,
+      type: SET_EDIT_MEMBER,
       payload: {
         ...profile,
         [event.target.name]: event.target.value
@@ -59,7 +59,7 @@ export default function EditPersonalInfo() {
       });
   };
   useEffect(() => {
-    dispatch(CallGetPersonalMemberInfoAPI());
+    dispatch(CallGetMemberInfoAPI());
   }, []);
 
   useEffect(() => {
@@ -81,7 +81,7 @@ export default function EditPersonalInfo() {
     <>
       <Grid container spacing={5} columnSpacing={1} marginBottom={10}>
         <Grid item xs={12}>
-          <Typography variant='h4'>회원 정보 조회/수정</Typography>
+          <Typography variant='h4'>기업 회원 정보 조회/수정</Typography>
           <Typography variant='p'>
             회원 정보를 수정하기 위해서는 현재 비밀번호를 필수로 입력해야
             합니다.
@@ -269,7 +269,7 @@ export default function EditPersonalInfo() {
               fullWidth
               onClick={() => {
                 // setIsAlert(true);
-                dispatch(CallPutPersonalMemberAPI()).then((res) => {
+                dispatch(CallPutMemberAPI()).then((res) => {
                   if (res) {
                     alert('회원정보 수정에 성공하였습니다.');
                     window.location.reload();
@@ -304,7 +304,7 @@ export default function EditPersonalInfo() {
         >
           <Button
             component={Link}
-            to='../withdraw'
+            to='/mypage/withdraw'
             color='initRed'
             variant='contained'
             sx={{height: '50px'}}
