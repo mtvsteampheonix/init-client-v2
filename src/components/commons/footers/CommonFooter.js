@@ -3,8 +3,7 @@ import {Box, Container, Divider, Grid, Stack, Typography} from '@mui/material';
 
 const StyledCssTitle = styled(Typography)(({theme}) => ({
   fontWeight: 'bold',
-  fontSize: theme.typography.h4.fontSize,
-  color: theme.palette.common.white
+  fontSize: theme.typography.h4.fontSize
 }));
 const StyledCssDetails = styled(Typography)(({theme}) => ({}));
 const StyledBox = styled(Box)(({theme}) => ({
@@ -13,7 +12,7 @@ const StyledBox = styled(Box)(({theme}) => ({
 export default function CommonFooter() {
   return (
     <>
-      <Divider sx={{width: '100%', marginTop: 10}} />
+      <Divider sx={{width: '100%'}} />
       <StyledBox padding={5} display='flex' alignItems='center'>
         <Container disableGutters component={Stack} spacing={5}>
           <Grid container justifyContent='space-between' rowGap={5}>
