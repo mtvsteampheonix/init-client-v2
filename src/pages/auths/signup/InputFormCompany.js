@@ -10,7 +10,6 @@ import {
 import {
   CallGetDuplicateMemberIdAPI,
   CallPostSignupCompanyAPI,
-  CallPostSignupPersonalAPI,
   CallPutSendEmailVerifyCodeAPI,
   CallPutVerifyEmailVerifyCodeAPI
 } from '../../../apis/auths/AuthAPICalls';
@@ -128,7 +127,8 @@ export default function InputFormCompany() {
                 value={companydata.registNumber}
                 id='registNumber'
                 name='registNumber'
-                label='사업자 등록번호'
+                label='사업자 등록번호 ( "-" 없이 적어주세요 )'
+                placeholder='0000000000'
                 onChange={handleCompanyChange}
                 required
               />
@@ -140,6 +140,7 @@ export default function InputFormCompany() {
                 id='comUrl'
                 name='comUrl'
                 label='홈페이지 주소'
+                placeholder='http://example.com'
                 onChange={handleCompanyChange}
               />
             </Grid>

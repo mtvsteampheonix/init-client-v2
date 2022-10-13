@@ -4,7 +4,7 @@ import applyListPersonalReducer from './match/applyListPersonalModule';
 import suggestionListPersonalReducer from './match/suggestionListPersonalModule';
 import suggestionListDetailPersonalReducer from './match/suggestionListDetailPersonalModule';
 import myPageSidebarReducer from './mypage/mypageSidebarModule';
-import editPersonalMemberReducer from './members/editPersonalMemberModule';
+import editMemberReducer from './members/editMemberModule';
 import signupReducer from './auths/signupModule';
 import signupplzReducer from './admins/signupplzReducer';
 import applyListCompanyReducer from './match/applyListCompanyModule';
@@ -16,7 +16,7 @@ const rootReducer = combineReducers({
   applyListDetailPersonalReducer,
   suggestionListPersonalReducer,
   suggestionListDetailPersonalReducer,
-  editPersonalMemberReducer,
+  editMemberReducer,
   signupplzReducer,
   applyListCompanyReducer,
   applyListDetailCompanyReducer
