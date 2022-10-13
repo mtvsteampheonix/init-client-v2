@@ -18,24 +18,37 @@ import {DateTimePicker} from '@mui/x-date-pickers/DateTimePicker';
 import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
 import {Typography} from '@mui/material';
-import {useLocation} from 'react-router-dom';
+import {useLocation, useParams} from 'react-router-dom';
+import {useSelector, useDispatch} from 'react-redux';
+import {SET_DATA} from '../../modules/jobsearch/RegistNoticeModule';
 
-export default function AddJobSearch() {
-  /**/
+export default function MyJobSearchDetails() {
+  const state = useSelector((state) => state.registNoticeReducer);
+  const dispatch = useDispatch();
+
   const location = useLocation();
 
   const noticeCodePk = location.state.noticeCodePk;
-  console.log(`왜   안돼${location.state.noticeCodePk}`);
+  // const params = useParams();
+  // const noticeCodePk = params.id;
+  console.log(`왜 안돼${location.state.noticeCodePk}`);
   const [details, setDetails] = React.useState({});
 
   React.useEffect(() => {
     console.log(`왜안돼${location.state.noticeCodePk}`);
     console.log(noticeCodePk);
-    fetch(`http://localhost:8080/jobsearchs/${noticeCodePk}`)
+    const response = fetch(
+      `http://localhost:8080/jobsearchs/edit/${noticeCodePk}`
+    )
       .then((response) => response.json())
-      .then((result) => setDetails(result.data));
+      .then((result) => {
+        dispatch({type: SET_DATA, payload: result.data});
+      })
+      .then(console.log(state));
   }, []);
+
   /**/
+
   /*게시 alert*/
   const [openPost, setOpenPost] = React.useState(false);
 
@@ -48,29 +61,23 @@ export default function AddJobSearch() {
   };
   /*게시일 선택 date picker*/
   /* datepicker */
-  const [PostbeginDay, setPostBeginDay] = React.useState(
-    dayjs('2014-08-18T21:11:54')
-  );
+  const [PostbeginDay, setPostBeginDay] = React.useState(dayjs());
 
   const handleChangePostBegin = (newValue) => {
     setPostBeginDay(newValue);
   };
-  const [PostendDay, setPostEndDay] = React.useState(
-    dayjs('2014-08-18T21:11:54')
-  );
+  const [PostendDay, setPostEndDay] = React.useState(dayjs());
 
   const handleChangePostEnd = (newValue) => {
     setPostEndDay(newValue);
   };
   /* 모집게시일 datepicker */
-  const [beginDay, setBeginDay] = React.useState(
-    dayjs(details.recruitStartDate)
-  );
+  const [beginDay, setBeginDay] = React.useState(dayjs(state.recruitStartDate));
 
   const handleChangeBegin = (newValue) => {
     setBeginDay(newValue);
   };
-  const [endDay, setEndDay] = React.useState(dayjs(details.recruitEndDate));
+  const [endDay, setEndDay] = React.useState(dayjs(state.recruitEndDate));
 
   const handleChangeEnd = (newValue) => {
     setEndDay(newValue);
@@ -79,20 +86,24 @@ export default function AddJobSearch() {
   /*SELECT*/
   const [career, setCareer] = React.useState('');
   const [salary, setSalary] = React.useState('');
-  const [employees, setEmployees] = React.useState('');
+  // const [employees, setEmployees] = React.useState('');
   const [education, setEducation] = React.useState('');
 
   const handleChangeCareer = (event) => {
     setCareer(event.target.value);
+    dispatch({type: SET_DATA, payload: {...state, career: event.target.value}});
   };
   const handleChangeSalary = (event) => {
     setSalary(event.target.value);
+    dispatch({type: SET_DATA, payload: {...state, annualIncome: event.target.value}});
   };
-  const handleChangeEmployees = (event) => {
-    setEmployees(event.target.value);
-  };
+  // const handleChangeEmployees = (event) => {
+  //   setEmployees(event.target.value);
+  // };
   const handleChangeEducation = (event) => {
     setEducation(event.target.value);
+    dispatch({type: SET_DATA, payload: {...state, employees: event.target.value}});
+
   };
 
   const skillList = ['java', 'python', 'C', 'spring', 'react', 'spring boot'];
@@ -199,7 +210,7 @@ export default function AddJobSearch() {
           </FormControl>
         </Box>
 
-        <Box sx={{minWidth: 120}}>
+        {/* <Box sx={{minWidth: 120}}>
           <FormControl fullWidth>
             <InputLabel id='demo-simple-select-label'>직원수</InputLabel>
             <Select
@@ -215,7 +226,7 @@ export default function AddJobSearch() {
               <MenuItem value={'100명이상'}>100명 이상</MenuItem>
             </Select>
           </FormControl>
-        </Box>
+        </Box> */}
 
         <Box sx={{minWidth: 120}}>
           <FormControl fullWidth>
@@ -246,7 +257,7 @@ export default function AddJobSearch() {
           label='근무지 위치'
           multiline
           minRows={1}
-          defaultValue={details.entLocation}
+          defaultValue={state.entLocation}
         />
 
         <TextField
@@ -256,7 +267,7 @@ export default function AddJobSearch() {
           multiline
           minRows={5}
           InputProps={{sx: {height: '150px'}}}
-          defaultValue={details.benefits}
+          defaultValue={state.benefits}
         />
       </Stack>
       <Box>
@@ -269,7 +280,7 @@ export default function AddJobSearch() {
           required
           id='title'
           label='제목'
-          defaultValue={`${details.title}`}
+          defaultValue={state.title}
         />
 
         <TextField
@@ -279,7 +290,7 @@ export default function AddJobSearch() {
           multiline
           minRows={8}
           InputProps={{sx: {height: '200px'}}}
-          defaultValue={details.content}
+          defaultValue={state.content}
         />
 
         <h3>자기소개서 항목</h3>
@@ -288,7 +299,7 @@ export default function AddJobSearch() {
           margin='dense'
           id='firstQuestion'
           label='자기소개서 1번 문항'
-          defaultValue='기존 문항을 출력합니다.'
+          defaultValue={state.selfIntroList[0]}
           placeholder='자기소개서 1번 문항을 입력해주세요.'
         />
 

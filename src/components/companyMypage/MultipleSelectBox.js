@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack';
 
 export default function Tags({title, list}) {
   return (
-    <Stack spacing={3} fullwidth>
+    <Stack spacing={3}>
       <Autocomplete
         multiple
         id='multipls-select'

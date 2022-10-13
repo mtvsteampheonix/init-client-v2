@@ -5,10 +5,8 @@ import Details from '../../pages/jobsearch/Details';
 export default function jobsearchRoute() {
   return (
     <>
-  
-        <Route path='/jobsearch' element={<JobSearch />}/>
-        <Route path=':id' element={<Details />}/>
-  
+      <Route index element={<JobSearch />} />
+      <Route path=':id' element={<Details />} />
     </>
   );
 }

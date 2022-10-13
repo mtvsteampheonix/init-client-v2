@@ -19,8 +19,14 @@ import TextField from '@mui/material/TextField';
 import {Stack} from '@mui/system';
 import {Typography} from '@mui/material';
 import {Link} from 'react-router-dom';
+import {useSelector} from 'react-redux';
+
+import Cookies from 'js-cookie';
+
 
 export default function MyJobSearch() {
+  const ids = useSelector((state) => state.MyNoticeIdReducer);
+
   /*게시 alert*/
   const [openPost, setOpenPost] = React.useState(false);
 
@@ -28,21 +34,49 @@ export default function MyJobSearch() {
     setOpenPost(true);
   };
 
-  const handleClosePost = () => {
+  const handleClosePost = async() => {
+    /*구직공고 게시요청 자리*/
+    console.log("here 구직공고 게시 "+ids)
+    const response = await fetch(`http://localhost:8080/jobsearchs/${ids[0]}`,{
+      method: 'put',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+        'Access-Control-Allow-Origin': '*',
+        Authorization: 'Bearer ' + Cookies.get('Bearer')
+      },
+      body: JSON.stringify(ids)
+    })
+    window.location.reload();
     setOpenPost(false);
   };
 
-    /*DIALOGALERT 삭제*/
+  /*DIALOGALERT 삭제*/
 
-    const [openDelete, setOpenDelete] = React.useState(false);
+  const [openDelete, setOpenDelete] = React.useState(false);
 
-    const handleClickOpenDelete = () => {
-      setOpenDelete(true);
-    };
-  
-    const handleCloseDelete = () => {
-      setOpenDelete(false);
-    };
+  const handleClickOpenDelete = () => {
+    setOpenDelete(true);
+  };
+
+
+
+  const handleCloseDelete = async() => {
+    /*삭제 요청 자리*/
+    console.log("here is 삭제자리"+ids)
+    const response = await fetch(`http://localhost:8080/jobsearchs`,{
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: '*/*',
+        'Access-Control-Allow-Origin': '*',
+        Authorization: 'Bearer ' + Cookies.get('Bearer')
+      },
+      body: JSON.stringify(ids)
+    })
+    window.location.reload();
+    setOpenDelete(false);
+  };
 
   /*게시일 선택 date picker*/
   /* datepicker */
@@ -66,7 +100,12 @@ export default function MyJobSearch() {
       <Typography variant='h4'>MY구직공고</Typography>
       <MyJobSearchList />
       <Box style={{display: 'flex', justifyContent: 'center'}}>
-        <Button component={Link} size='large' to='../regist-jobsearch' variant='contained'>
+        <Button
+          component={Link}
+          size='large'
+          to='../regist-jobsearch'
+          variant='contained'
+        >
           작성
         </Button>
         <Button
@@ -78,18 +117,18 @@ export default function MyJobSearch() {
           게시
         </Button>
         <Button
-            variant='contained'
-            size='large'
-            onClick={handleClickOpenDelete}
-            color='error'
-          >
-            삭제
-          </Button>
+          variant='contained'
+          size='large'
+          onClick={handleClickOpenDelete}
+          color='error'
+        >
+          삭제
+        </Button>
         <Button
           component={Link}
           variant='outlined'
           size='large'
-          to='../apply-list'
+          to={`/mypage/apply-list/${ids[0]}`}
         >
           관리
         </Button>
@@ -139,33 +178,31 @@ export default function MyJobSearch() {
         </DialogActions>
       </Dialog>
 
-
       {/* Dialog 삭제 */}
 
       <Dialog
-          open={openDelete}
-          onClose={handleCloseDelete}
-          aria-labelledby='alert-delete-title'
-          aria-describedby='alert-delete-description'
-        >
-          <DialogTitle id='alert-delete-title'>
-            {'구직공고작성'} {/*팝업창 메인에 출력할 문구*/}
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText id='alert-delete-description'>
-              구직공고게시글을 삭제하시겠습니까?
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button variant='contained' onClick={handleCloseDelete}>
-              예
-            </Button>
-            <Button variant='outlined' onClick={handleCloseDelete}>
-              아니요
-            </Button>
-          </DialogActions>
-        </Dialog>
-     
+        open={openDelete}
+        onClose={handleCloseDelete}
+        aria-labelledby='alert-delete-title'
+        aria-describedby='alert-delete-description'
+      >
+        <DialogTitle id='alert-delete-title'>
+          {'구직공고작성'} {/*팝업창 메인에 출력할 문구*/}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id='alert-delete-description'>
+            구직공고게시글을 삭제하시겠습니까?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button variant='contained' onClick={handleCloseDelete}>
+            예
+          </Button>
+          <Button variant='outlined' onClick={handleCloseDelete}>
+            아니요
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 }

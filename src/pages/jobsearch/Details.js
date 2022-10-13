@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Unstable_Grid2';
 import Button from '@mui/material/Button';
-import {Link} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import {useLocation} from 'react-router-dom';
 
 const Item = styled(Paper)(({theme}) => ({
@@ -16,22 +16,20 @@ const Item = styled(Paper)(({theme}) => ({
   color: theme.palette.text.secondary
 }));
 function Details() {
-
   const location = useLocation();
 
-  const noticeCodePk = location.state.noticeCodePk;
+  // const noticeCodePk = location.state.noticeCodePk;
+  const noticeCodePk = useParams;
   console.log(`왜   안돼${location.state.noticeCodePk}`);
-  const [details,setDetails] = React.useState({});
+  const [details, setDetails] = React.useState({});
 
-  React.useEffect(() => {
-    
+  React.useEffect(async () => {
     console.log(`왜안돼${location.state.noticeCodePk}`);
     console.log(noticeCodePk);
-    fetch(`http://localhost:8080/jobsearchs/${noticeCodePk}`)
+    await fetch(`http://localhost:8080/jobsearchs/${noticeCodePk}`)
       .then((response) => response.json())
-      .then((result) => setDetails(result.data))
-
-  },[]);
+      .then((result) => setDetails(result.data));
+  }, []);
   return (
     <Container fixed>
       {/* 기업명 */}
@@ -46,13 +44,13 @@ function Details() {
               {/* 모집게시일 */}
               <div>{details.recruitStartDate}</div>
             </Item>
-            </Grid>
-            <Grid xs={6}>
+          </Grid>
+          <Grid xs={6}>
             <Item>
               {/* 모집종료일 */}
               <div>{details.recruitEndDate}</div>
             </Item>
-            </Grid>
+          </Grid>
         </Grid>
       </Box>
       <Box sx={{flexGrow: 1}}>
@@ -89,8 +87,8 @@ function Details() {
           </Grid>
         </Grid>
       </Box>
-      <hr/>
-      
+      <hr />
+
       <div
         style={{
           witdh: 1200,
@@ -128,7 +126,9 @@ function Details() {
         <Button component={Link} variant='contained' to='/recruit/apply'>
           지원하기
         </Button>
-        <Button component={Link} variant='outlined' to='/jobsearch'>목록</Button>
+        <Button component={Link} variant='outlined' to='/jobsearch'>
+          목록
+        </Button>
       </div>
     </Container>
   );

@@ -18,23 +18,43 @@ import {DateTimePicker} from '@mui/x-date-pickers/DateTimePicker';
 import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
 import Cookies from 'js-cookies';
-import { useNavigate } from 'react-router-dom';
-
-
+import {useNavigate} from 'react-router-dom';
+import {useSelector, useDispatch} from 'react-redux';
+import {SET_DATA} from '../../modules/jobsearch/RegistNoticeModule';
+import { CallPostJopSearchAPI } from '../../apis/jobsearch/JobSearchAPICalls';
 
 export default function RegistJobSearch() {
+  const state = useSelector((state) => state.registNoticeReducer);
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
   /* datepicker */
-  const [beginDay, setBeginDay] = React.useState(dayjs());
+  // const [beginDay, setBeginDay] = React.useState(dayjs());
 
   const handleChangeBegin = (newValue) => {
-    setBeginDay(newValue);
+    // setBeginDay(newValue);
+    //모집기간 dispatch
+    console.log('어지럽네'+typeof(newValue));
+    dispatch({
+      type: SET_DATA,
+      payload: {
+        ...state,
+        recruitStartDate: newValue.format() 
+      }
+    });
   };
+  console.log(state);
   const [endDay, setEndDay] = React.useState(dayjs());
 
   const handleChangeEnd = (newValue) => {
-    setEndDay(newValue);
+    // setEndDay(newValue);
+    dispatch({
+      type: SET_DATA,
+      payload: {
+        ...state,
+        recruitEndDate: newValue.format() 
+      }
+    });
   };
 
   /*SELECT*/
@@ -45,18 +65,40 @@ export default function RegistJobSearch() {
 
   const handleChangeCareer = (event) => {
     setCareer(event.target.value);
+    dispatch({
+      type: SET_DATA,
+      payload: {
+        ...state,
+        career: event.target.value
+      }
+    });
   };
   const handleChangeSalary = (event) => {
     console.log(event.target.value);
     setSalary(event.target.value);
+    dispatch({
+      type: SET_DATA,
+      payload: {
+        ...state,
+        annualIncome: event.target.value
+      }
+    });
   };
   // const handleChangeEmployees = (event) => {
   //   setEmployees(event.target.value);
   // };
   const handleChangeEducation = (event) => {
     setEducation(event.target.value);
+    dispatch({
+      type: SET_DATA,
+      payload: {
+        ...state,
+        education: event.target.value
+      }
+    });
   };
 
+  /**여기 해결 합시다. 여기 해결 합시다. 여기 해결 합시다.**/
   const skillList = ['java', 'python', 'C', 'spring', 'react', 'spring boot'];
   const jobList = [
     '자바개발자',
@@ -78,34 +120,34 @@ export default function RegistJobSearch() {
   };
 
   /*자기소개서 */
-  const [selfIntro,setSelfIntro] = React.useState(['1','2','3'])
+  const [selfIntro, setSelfIntro] = React.useState(['1', '2', '3']);
 
-  const [data,setData] = React.useState({
-    title:"",
-    content:"",
-    education:"",
-    career:"",
-    preference:"",
-    annualIncome:"",
-    entLocation:"",
-    recruitStartDate:beginDay,
-    recruitEndDate:endDay,
-    // employees:employees, //아 DTO에 이거 안만들었다.
-    benefits:"", 
-    selfIntroList:""
-  });
+  // const [data, setData] = React.useState({
+  //   title: '',
+  //   content: '',
+  //   education: '',
+  //   career: '',
+  //   preference: '',
+  //   annualIncome: '',
+  //   entLocation: '',
+  //   recruitStartDate: '',
+  //   recruitEndDate: endDay,
+  //   // employees:employees, //아 DTO에 이거 안만들었다.
+  //   benefits: '',
+  //   selfIntroList: ''
+  // });
 
-   
-const response = () => {fetch(`http://localhost:8080/jobsearchs`,{
-  method:'POST',
-  headers:{
-    "Content-Type": "application/json",
-    "Accept": "*/*",
-    "Authorization": "Bearer " + Cookies.get('bearer')
-  },
-  body: JSON.stringify(data)
-})
-}
+  // const response = () => {
+  //   fetch(`http://localhost:8080/jobsearchs`, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       Accept: '*/*',
+  //       Authorization: 'Bearer ' + Cookies.get('bearer')
+  //     },
+  //     body: JSON.stringify(state)
+  //   });
+  // };
 
   /*등록하는 post 요청 끝*/
 
@@ -116,14 +158,14 @@ const response = () => {fetch(`http://localhost:8080/jobsearchs`,{
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DateTimePicker
             label='모집 게시일'
-            value={beginDay}
+            value={state.recruitStartDate}
             onChange={handleChangeBegin}
             renderInput={(params) => <TextField {...params} />}
           />
 
           <DateTimePicker
             label='모집 마감일'
-            value={endDay}
+            value={state.recruitEndDate}
             onChange={handleChangeEnd}
             renderInput={(params) => <TextField {...params} />}
           />
@@ -137,7 +179,7 @@ const response = () => {fetch(`http://localhost:8080/jobsearchs`,{
               id='demo-simple-select'
               value={career}
               label='career'
-              onChange={e=>handleChangeCareer(e)}
+              onChange={(e) => handleChangeCareer(e)}
             >
               <MenuItem value={'무관'}>무관</MenuItem>
               <MenuItem value={'신입'}>신입</MenuItem>
@@ -162,24 +204,24 @@ const response = () => {fetch(`http://localhost:8080/jobsearchs`,{
               id='demo-simple-select'
               value={salary}
               label='salary'
-              onChange={e=>handleChangeSalary(e)}
+              onChange={(e) => handleChangeSalary(e)}
             >
-              <MenuItem value={'3,000 이상'}>3,000 이상</MenuItem>
-              <MenuItem value={'3,500 이상'}>3,500 이상</MenuItem>
-              <MenuItem value={'4,000 이상'}>4,000 이상</MenuItem>
-              <MenuItem value={'4,500 이상'}>4,500 이상</MenuItem>
-              <MenuItem value={'5,000 이상'}>5,000 이상</MenuItem>
-              <MenuItem value={'5,500 이상'}>5,500 이상</MenuItem>
-              <MenuItem value={'6,000 이상'}>6,000 이상</MenuItem>
-              <MenuItem value={'6,500 이상'}>6,500 이상</MenuItem>
-              <MenuItem value={'7,000 이상'}>7,000 이상</MenuItem>
-              <MenuItem value={'7,500 이상'}>7,500 이상</MenuItem>
-              <MenuItem value={'8,000 이상'}>8,000 이상</MenuItem>
+              <MenuItem value={ 3000 }>3,000 이상</MenuItem>
+              <MenuItem value={ 3500 }>3,500 이상</MenuItem>
+              <MenuItem value={ 4000 }>4,000 이상</MenuItem>
+              <MenuItem value={ 4500 }>4,500 이상</MenuItem>
+              <MenuItem value={ 5000 }>5,000 이상</MenuItem>
+              <MenuItem value={ 5500 }>5,500 이상</MenuItem>
+              <MenuItem value={ 6000 }>6,000 이상</MenuItem>
+              <MenuItem value={ 6500 }>6,500 이상</MenuItem>
+              <MenuItem value={ 7000 }>7,000 이상</MenuItem>
+              <MenuItem value={ 7500 }>7,500 이상</MenuItem>
+              <MenuItem value={ 8000 }>8,000 이상</MenuItem>
             </Select>
           </FormControl>
         </Box>
 
-      {/*직원 수 있는지 */}
+        {/*직원 수 있는지 */}
         {/* <Box sx={{minWidth: 120}}>
           <FormControl fullWidth>
             <InputLabel id='demo-simple-select-label'>직원수</InputLabel>
@@ -206,7 +248,7 @@ const response = () => {fetch(`http://localhost:8080/jobsearchs`,{
               id='demo-simple-select'
               value={education}
               label='education'
-              onChange={e=>handleChangeEducation(e)}
+              onChange={(e) => handleChangeEducation(e)}
             >
               <MenuItem value={'무관'}>무관</MenuItem>
               <MenuItem value={'고졸'}>고졸</MenuItem>
@@ -228,17 +270,35 @@ const response = () => {fetch(`http://localhost:8080/jobsearchs`,{
           placeholder='근무지의 주소를 입력해주세요'
           multiline
           minRows={1}
-          onChange={(e)=>{setData({...data, entLocation:e.target.value})}}
-          
+          onChange={(e) => {
+            dispatch({
+              type: SET_DATA,
+              payload: {
+                ...state,
+                entLocation: e.target.value
+              }
+            });
+
+            // setData({...data, entLocation: e.target.value});
+          }}
         />
-          <TextField
-            fullWidth
-            margin='dense'
-            id='preference'
-            label='우대사항'
-            placeholder='우대사항을 입력하세요.'
-            onChange={(e)=>{setData({...data, preference:e.target.value})}}
-            />
+        <TextField
+          fullWidth
+          margin='dense'
+          id='preference'
+          label='우대사항'
+          placeholder='우대사항을 입력하세요.'
+          onChange={(e) => {
+            dispatch({
+              type: SET_DATA,
+              payload: {
+                ...state,
+                preference: e.target.value
+              }
+            });
+            // setData({...data, preference: e.target.value});
+          }}
+        />
         <TextField
           fullWidth
           id='outlined-textarea'
@@ -247,10 +307,17 @@ const response = () => {fetch(`http://localhost:8080/jobsearchs`,{
           multiline
           minRows={5}
           InputProps={{sx: {height: '150px'}}}
-          onChange={(e)=>{setData({...data, benefits:e.target.value})}}
-
+          onChange={(e) => {
+            dispatch({
+              type: SET_DATA,
+              payload: {
+                ...state,
+                benefits: e.target.value
+              }
+            });
+            // setData({...data, benefits: e.target.value});
+          }}
         />
-
       </Stack>
       <Box>
         <h3 style={{margin: 10}}>소개글 작성</h3>
@@ -261,8 +328,16 @@ const response = () => {fetch(`http://localhost:8080/jobsearchs`,{
           id='title'
           label='제목'
           placeholder='제목을 입력하세요.'
-          onChange={(e)=>{setData({...data, title:e.target.value})}}
-
+          onChange={(e) => {
+            dispatch({
+              type: SET_DATA,
+              payload: {
+                ...state,
+                title: e.target.value
+              }
+            });
+            // setData({...data, title: e.target.value});
+          }}
         />
 
         <TextField
@@ -273,8 +348,16 @@ const response = () => {fetch(`http://localhost:8080/jobsearchs`,{
           multiline
           minRows={8}
           InputProps={{sx: {height: '200px'}}}
-          onChange={(e)=>{setData({...data, content:e.target.value})}}
-
+          onChange={(e) => {
+            dispatch({
+              type: SET_DATA,
+              payload: {
+                ...state,
+                content: e.target.value
+              }
+            });
+            // setData({...data, content: e.target.value});
+          }}
         />
 
         <h3>자기소개서 항목</h3>
@@ -284,10 +367,20 @@ const response = () => {fetch(`http://localhost:8080/jobsearchs`,{
           id='firstQuestion'
           label='자기소개서 1번 문항'
           placeholder='자기소개서 1번 문항을 입력해주세요.'
-          onChange={(e)=>{
-            console.log(e.target.value);
-            setSelfIntro(...selfIntro,e.target.value)}}
-
+          onChange={(e) => {
+            // console.log(e.target.value);
+            let tmp = state.selfIntroList;
+            tmp[0] = e.target.value;
+            dispatch({
+              type: SET_DATA,
+              payload: {
+                ...state,
+                selfIntroList: [...tmp]
+              }
+            });
+            // console.log('자소서1'+state.selfIntroList)
+            // setSelfIntro(...selfIntro, e.target.value);
+          }}
         />
 
         <TextField
@@ -296,9 +389,21 @@ const response = () => {fetch(`http://localhost:8080/jobsearchs`,{
           id='secondQuestion'
           label='자기소개서 2번 문항'
           placeholder='자기소개서 2번 문항을 입력해주세요.'
-          onChange={(e)=>{
-            console.log(e.target.value);
-            setSelfIntro(...selfIntro , e.target.value)}}
+          onChange={(e) => {
+            // console.log(e.target.value);
+            let tmp = state.selfIntroList;
+            tmp[1] = e.target.value;
+            dispatch({
+              type: SET_DATA,
+              payload: {
+                ...state,
+                selfIntroList: [...tmp]
+              }
+            });
+            // console.log('자소서2'+state.selfIntroList)
+
+            // setSelfIntro(...selfIntro, e.target.value);
+          }}
         />
 
         <TextField
@@ -307,9 +412,20 @@ const response = () => {fetch(`http://localhost:8080/jobsearchs`,{
           id='thirdQuestion'
           label='자기소개서 3번 문항'
           placeholder='자기소개서 3번 문항을 입력해주세요.'
-          onChange={(e)=>{
-            console.log(e.target.value);
-            setSelfIntro( ...selfIntro,e.target.value)}}
+          onChange={(e) => {
+            let tmp = state.selfIntroList;
+            tmp[2] = e.target.value;
+            dispatch({
+              type: SET_DATA,
+              payload: {
+                ...state,
+                selfIntroList: [...tmp]
+              }
+            });
+            console.log('자소서3' + state.selfIntroList);
+
+            // setSelfIntro(...selfIntro, e.target.value);
+          }}
         />
 
         <Box style={{textAlign: 'center'}}>
@@ -332,15 +448,18 @@ const response = () => {fetch(`http://localhost:8080/jobsearchs`,{
                 </DialogContentText>
               </DialogContent>
               <DialogActions>
-                <Button variant='contained' onClick={()=>{
-
-                  console.log(data);
-                  console.log(data.selfIntroList);
-                  console.log(data.selfIntroList);
-                  console.log(data.selfIntroList);
-                  handleClose()
-                  navigate("/mypage/jobsearch")
-                }}>
+                <Button
+                  variant='contained'
+                  onClick={() => {
+                    // console.log(data);
+                    // console.log(data.selfIntroList);
+                    // console.log(data.selfIntroList);
+                    // console.log(data.selfIntroList);
+                    dispatch(CallPostJopSearchAPI())
+                    handleClose();
+                    // navigate('/mypage/jobsearch');
+                  }}
+                >
                   예
                 </Button>
                 <Button variant='outlined' onClick={handleClose}>
