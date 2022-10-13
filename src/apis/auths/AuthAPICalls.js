@@ -25,10 +25,11 @@ export function CallPostLoginAPI(loginData) {
         result.data?.accessToken,
         result.data?.accessTokenExpiresIn
       );
-      return true;
+      return result;
     }
     setCookie('Bearer', '', 0);
-    return false;
+    console.log(result);
+    return result;
   };
 }
 
