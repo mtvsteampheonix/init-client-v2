@@ -16,6 +16,7 @@ import MyNoticeIdReducer from './jobsearch/MyNoticeIdModule';
 import signupplzReducer from './admins/signupplzReducer';
 import applyListCompanyReducer from './match/applyListCompanyModule';
 import applyListDetailCompanyReducer from './match/applyListDetailCompanyModule';
+import companyInformationReducer from './match/companyInformationModule';
 
 const persistConfig = {
   key: 'root',
@@ -37,7 +38,8 @@ export const rootReducer = combineReducers({
   editMemberReducer,
   signupplzReducer,
   applyListCompanyReducer,
-  applyListDetailCompanyReducer
+  applyListDetailCompanyReducer,
+  companyInformationReducer
 });
 
 export default persistReducer(persistConfig, rootReducer);

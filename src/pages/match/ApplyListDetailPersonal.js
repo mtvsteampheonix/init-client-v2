@@ -8,7 +8,7 @@ import {callApplyListDetailPersonalAPI} from '../../apis/match/MatchAPICalls';
 import SaveIcon from '@mui/icons-material/Save';
 import getToken from './../../utils/auths/getToken';
 
-function ApplyListDetails() {
+function ApplyListDetailPersonal() {
   const recruitInfo = useSelector(
     (state) => state.applyListDetailPersonalReducer
   );
@@ -241,4 +241,4 @@ function ApplyListDetails() {
   );
 }
 
-export default ApplyListDetails;
+export default ApplyListDetailPersonal;

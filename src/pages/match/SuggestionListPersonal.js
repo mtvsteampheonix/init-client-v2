@@ -14,6 +14,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import {callSuggestionListPersonalAPI} from '../../apis/match/MatchAPICalls';
 import {useDispatch, useSelector} from 'react-redux';
+import getToken from './../../utils/auths/getToken';
 
 const ApplyPageHeaderComponent = styled.nav`
   display: flex;
@@ -43,10 +44,12 @@ const FormGroup = styled.div`
   align-items: center;
 `;
 
-function SuggestionList() {
+function SuggestionListPersonal() {
   const [checkFilter, setCheckFilter] = React.useState(false);
   const dispatch = useDispatch();
-  const suggestionList = useSelector((state) => state.suggestionListPersonalReducer);
+  const suggestionList = useSelector(
+    (state) => state.suggestionListPersonalReducer
+  );
   console.log(suggestionList);
   const navigate = useNavigate();
   const [page, setPage] = React.useState(1);
@@ -55,7 +58,7 @@ function SuggestionList() {
     setSearchValue({...searchValue, page: (value - 1) * 10});
   };
   const [searchValue, setSearchValue] = React.useState({
-    memberCode: 3,
+    memberCode: getToken().memberCode,
     page: page - 1,
     criteria: '',
     content: ''
@@ -148,16 +151,19 @@ function SuggestionList() {
             item
             xs={9.1}
             onClick={() => {
-              navigate('/mypage/suggestion-list/detail/' + interviewSuggestionInfo.interviewSuggestionCode);
+              navigate(
+                '/mypage/suggestion-list/detail/' +
+                  interviewSuggestionInfo.interviewSuggestionCode
+              );
             }}
           >
             <Grid container flexDirection='column'>
               <Grid item>
-                <Typography variant='h4'>{interviewSuggestionInfo.comName}</Typography>
+                <Typography variant='h4'>
+                  {interviewSuggestionInfo.comName}
+                </Typography>
               </Grid>
-              <Grid item>
-                {interviewSuggestionInfo.comUrl}
-              </Grid>
+              <Grid item>{interviewSuggestionInfo.comUrl}</Grid>
             </Grid>
           </Grid>
           <Grid item xs={1} paddingTop={2.8}>
@@ -206,4 +212,4 @@ function SuggestionList() {
   );
 }
 
-export default SuggestionList;
+export default SuggestionListPersonal;
