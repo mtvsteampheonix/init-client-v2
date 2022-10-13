@@ -4,6 +4,11 @@ import applyListPersonalReducer from './match/applyListPersonalModule';
 import suggestionListPersonalReducer from './match/suggestionListPersonalModule';
 import suggestionListDetailPersonalReducer from './match/suggestionListDetailPersonalModule';
 import myPageSidebarReducer from './mypage/mypageSidebarModule';
+import resumeMainFormReducer from './resume/resumeFormModule';
+import {persistReducer} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import {resumeCombineReducer} from './resume/addStepModule';
+
 import editMemberReducer from './members/editMemberModule';
 import signupReducer from './auths/signupModule';
 import registNoticeReducer from './jobsearch/RegistNoticeModule';
@@ -12,13 +17,21 @@ import signupplzReducer from './admins/signupplzReducer';
 import applyListCompanyReducer from './match/applyListCompanyModule';
 import applyListDetailCompanyReducer from './match/applyListDetailCompanyModule';
 
-const rootReducer = combineReducers({
+const persistConfig = {
+  key: 'root',
+  storage,
+  whitelist: ['resumeCombineReducer']
+};
+
+export const rootReducer = combineReducers({
   signupReducer,
   applyListPersonalReducer,
   myPageSidebarReducer,
   applyListDetailPersonalReducer,
   suggestionListPersonalReducer,
   suggestionListDetailPersonalReducer,
+  resumeMainFormReducer,
+  resumeCombineReducer,
   registNoticeReducer,
   MyNoticeIdReducer,
   editMemberReducer,
@@ -27,4 +40,4 @@ const rootReducer = combineReducers({
   applyListDetailCompanyReducer
 });
 
-export default rootReducer;
+export default persistReducer(persistConfig, rootReducer);

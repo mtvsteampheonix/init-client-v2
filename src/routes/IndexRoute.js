@@ -9,8 +9,11 @@ import IndexLayout from '../layouts/root-layouts/IndexLayout';
 import AuthsRoute from './auths/AuthsRoute';
 import onlyAdmin from './../utils/routes/onlyAdmin';
 import onlyNonMember from '../utils/routes/onlyNonMember';
+import onlyPersonal from '../utils/routes/onlyPersonal';
 import PersonalMypage from './mypages/PersonalMypage';
 import getToken from './../utils/auths/getToken';
+import ResumeRoute from './resume/ResumeRoute';
+
 import WithdrawSuccess from './../pages/members/withdraws/WithdrawSuccess';
 import onlyAuths from '../utils/routes/onlyAuths';
 import onlyCompany from './../utils/routes/onlyCompany';
@@ -54,6 +57,7 @@ export default function IndexRoute() {
           <Route path='auths' loader={onlyNonMember} children={AuthsRoute()} />
           <Route path='mypage' children={MypageSwitch()} />
           <Route path='test' loader={onlyAdmin} element={<Test />} />
+          <Route path='resume' loader={onlyPersonal} children={ResumeRoute()} />
           <Route path='withdraw-success' element={<WithdrawSuccess />} />
           <Route path='jobsearch' children={jobsearchRoute()} />
           <Route path='admin' loader={onlyAdmin} children={AdminRoute()} />
