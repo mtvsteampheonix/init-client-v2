@@ -185,7 +185,7 @@ function ApplyListDetailCompany() {
                 marginTop: '8px'
               }}
               variant='outlined'
-              onClick={() => navigate('/mypage/apply-list')}
+              onClick={() => navigate('/mypage/apply-list/' + noticeCode)}
             >
               목록
             </Button>
@@ -227,7 +227,7 @@ function ApplyListDetailCompany() {
                     applicationCode
                   ]);
                   alert('완료 되었습니다.');
-                  navigate('/mypage/apply-list');
+                  navigate('/mypage/apply-list/' + noticeCode);
                 }
               }}
             >

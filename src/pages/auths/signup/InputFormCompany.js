@@ -1,7 +1,7 @@
 import {Button, Grid, TextField, Typography, Divider, Box} from '@mui/material';
 import FaxIcon from '@mui/icons-material/Fax';
 import {Link, useNavigate} from 'react-router-dom';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   SET_COMPANYDATA,
@@ -27,7 +27,8 @@ export default function InputFormCompany() {
     memberPw: true,
     memberPwReInput: true,
     memberName: true,
-    phone: true
+    phone: true,
+    registNumber: true
   });
 
   const handleCompanyChange = (event) => {
@@ -36,6 +37,18 @@ export default function InputFormCompany() {
       payload: {...companydata, [event.target.name]: event.target.value}
     });
   };
+  useEffect(() => {
+    const regExp = /^[0-9]{10}$/;
+    companydata?.registNumber.length > 0
+      ? setVerifyFormData({
+          ...verifyFormData,
+          registNumber: regExp.test(companydata.registNumber)
+        })
+      : setVerifyFormData({
+          ...verifyFormData,
+          registNumber: true
+        });
+  }, [companydata?.registNumber]);
 
   const handleChange = (event) => {
     let regExp;
@@ -59,7 +72,6 @@ export default function InputFormCompany() {
       default:
         break;
     }
-
     dispatch({
       type: SET_FORMDATA,
       payload: {
@@ -82,7 +94,6 @@ export default function InputFormCompany() {
 
     event.target.name === 'memberId' && setCheckId(true);
   };
-  console.log(signupData);
   return (
     <>
       <Grid
@@ -122,16 +133,31 @@ export default function InputFormCompany() {
               />
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                fullWidth
-                value={companydata.registNumber}
-                id='registNumber'
-                name='registNumber'
-                label='사업자 등록번호 ( "-" 없이 적어주세요 )'
-                placeholder='0000000000'
-                onChange={handleCompanyChange}
-                required
-              />
+              {verifyFormData.registNumber ? (
+                <TextField
+                  fullWidth
+                  value={companydata.registNumber}
+                  id='registNumber'
+                  name='registNumber'
+                  label='사업자 등록번호 ( "-" 없이 적어주세요 )'
+                  placeholder='0000000000'
+                  onChange={handleCompanyChange}
+                  required
+                />
+              ) : (
+                <TextField
+                  error
+                  helperText='10자리의 숫자를 입력해주세요'
+                  fullWidth
+                  value={companydata.registNumber}
+                  id='registNumber'
+                  name='registNumber'
+                  label='사업자 등록번호 ( "-" 없이 적어주세요 )'
+                  placeholder='0000000000'
+                  onChange={handleCompanyChange}
+                  required
+                />
+              )}
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -503,6 +529,7 @@ export default function InputFormCompany() {
           verifyFormData.memberId &&
           verifyFormData.memberPw &&
           verifyFormData.memberPwReInput &&
+          verifyFormData.registNumber &&
           checkId ? (
             <Button
               variant='contained'
