@@ -19,7 +19,6 @@ import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
 
-
 export default function BasicTable() {
   /**/
   const [noticeList, setNoticeList] = React.useState([]);
@@ -42,32 +41,32 @@ export default function BasicTable() {
     <Box>
       {/* 검색창 시작*/}
       <Box
-      sx={{
-        width: 500,
-        maxWidth: '100%',
-      }}
-    >
-     <TextField
-        size="small"
-        fullWidth
-        id="search"
-        label="search"
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start" >
-              <SearchIcon />
-            </InputAdornment>
-          ),
+        sx={{
+          width: 500,
+          maxWidth: '100%'
         }}
-        placeholder="검색할 키워드를 입력해주세요"
-        variant="outlined"
-        onChange={(e)=>{
-          console.log(e.target.value);
-        setSearchValue(e.target.value);
-        console.log(searchValue);
-      }}
-      />
-    </Box>
+      >
+        <TextField
+          size='small'
+          fullWidth
+          id='search'
+          label='search'
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position='start'>
+                <SearchIcon />
+              </InputAdornment>
+            )
+          }}
+          placeholder='검색할 키워드를 입력해주세요'
+          variant='outlined'
+          onChange={(e) => {
+            console.log(e.target.value);
+            setSearchValue(e.target.value);
+            console.log(searchValue);
+          }}
+        />
+      </Box>
       {/* 검색창 끝*/}
       <TableContainer component={Paper}>
         <Table sx={{minWidth: 650}} aria-label='simple table'>

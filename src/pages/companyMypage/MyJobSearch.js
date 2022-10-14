@@ -23,7 +23,6 @@ import {useSelector} from 'react-redux';
 
 import Cookies from 'js-cookie';
 
-
 export default function MyJobSearch() {
   const ids = useSelector((state) => state.MyNoticeIdReducer);
 
@@ -34,10 +33,10 @@ export default function MyJobSearch() {
     setOpenPost(true);
   };
 
-  const handleClosePost = async() => {
+  const handleClosePost = async () => {
     /*구직공고 게시요청 자리*/
-    console.log("here 구직공고 게시 "+ids)
-    const response = await fetch(`http://localhost:8080/jobsearchs`,{
+    console.log('here 구직공고 게시 ' + ids);
+    const response = await fetch(`http://localhost:8080/jobsearchs`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -46,14 +45,14 @@ export default function MyJobSearch() {
         Authorization: 'Bearer ' + Cookies.get('Bearer')
       },
       body: JSON.stringify({
-        noticeCode:ids[0],
+        noticeCode: ids[0],
         postStartDate: PostbeginDay,
-        postEndDate: PostendDay,
+        postEndDate: PostendDay
       })
-    })
+    });
 
     console.log(response);
-    // window.location.reload();
+    window.location.reload();
     setOpenPost(false);
   };
 
@@ -65,12 +64,10 @@ export default function MyJobSearch() {
     setOpenDelete(true);
   };
 
-
-
-  const handleCloseDelete = async() => {
+  const handleCloseDelete = async () => {
     /*삭제 요청 자리*/
-    console.log("here is 삭제자리"+ids)
-    const response = await fetch(`http://localhost:8080/jobsearchs`,{
+    console.log('here is 삭제자리' + ids);
+    const response = await fetch(`http://localhost:8080/jobsearchs`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -79,23 +76,19 @@ export default function MyJobSearch() {
         Authorization: 'Bearer ' + Cookies.get('Bearer')
       },
       body: JSON.stringify(ids)
-    })
+    });
     window.location.reload();
     setOpenDelete(false);
   };
 
   /*게시일 선택 date picker*/
   /* datepicker */
-  const [PostbeginDay, setPostBeginDay] = React.useState(
-    dayjs().format()
-  );
+  const [PostbeginDay, setPostBeginDay] = React.useState(dayjs().format());
 
   const handleChangePostBegin = (newValue) => {
     setPostBeginDay(newValue);
   };
-  const [PostendDay, setPostEndDay] = React.useState(
-    dayjs().format()
-  );
+  const [PostendDay, setPostEndDay] = React.useState(dayjs().format());
 
   const handleChangePostEnd = (newValue) => {
     setPostEndDay(newValue);
