@@ -606,7 +606,8 @@ function MainResume({
     mobilePhone: '',
     emailFront: '',
     emailBack: '',
-    isOpenedPhoto: false
+    isOpenedPhoto: false,
+    imgUrl: null
   });
 
   const {
@@ -622,7 +623,8 @@ function MainResume({
     mobilePhone,
     emailFront,
     emailBack,
-    isOpenedPhoto
+    isOpenedPhoto,
+    imgUrl
   } = mainInputs;
 
   console.log(mainInputs);
@@ -638,18 +640,6 @@ function MainResume({
 
   // const {register, handleSubmit} = useForm();
   const dispatch = useDispatch();
-
-  const encodeFileToBase64 = (fileBlob) => {
-    const reader = new FileReader();
-
-    reader.readAsDataURL(fileBlob);
-    return new Promise((resolve, reject) => {
-      reader.onload = () => {
-        setImgSrc(reader.result);
-        resolve();
-      };
-    });
-  };
 
   const onCompleteHandler = (data) => {
     setMainInputs({
@@ -693,7 +683,6 @@ function MainResume({
   }
 
   useEffect(() => {
-    setImgSrc(variable.imgSrc);
     setMainInputs({
       ...mainInputs,
       title: resumeInfo ? resumeInfo.title : '',
@@ -726,7 +715,43 @@ function MainResume({
     setValue('emailFront', emailFront);
     setValue('emailBack', emailBack);
     setValue('isOpenedPhoto', isOpenedPhoto);
+    setValue('imgUrl', imgUrl);
   }, [resumeInfo]);
+
+  useEffect(() => {
+    // 이미지 업로드시 미리보기 세팅
+    if (imgUrl) {
+      const fileReader = new FileReader();
+      fileReader.onload = (e) => {
+        const {result} = e.target;
+        if (result) {
+          setImgSrc(result);
+        }
+      };
+      fileReader.readAsDataURL(imgUrl);
+    }
+  }, [imgUrl]);
+
+  // const onChangeImageUpload = (e) => {
+  //   const image = e.target.files[0];
+
+  //   setMainInputs({
+  //     ...mainInputs,
+  //     imgUrl: image
+  //   });
+  // };
+
+  // const encodeFileToBase64 = (fileBlob) => {
+  //   const reader = new FileReader();
+
+  //   reader.readAsDataURL(fileBlob);
+  //   return new Promise((resolve, reject) => {
+  //     reader.onload = () => {
+  //       setImgSrc(reader.result);
+  //       resolve();
+  //     };
+  //   });
+  // };
 
   return (
     <>
@@ -759,13 +784,19 @@ function MainResume({
               사진 첨부
               <input
                 hidden
-                accept='image/*'
+                accept='image/jpg,image/png,image/jpeg,image/gif'
                 multiple
                 type='file'
+                readOnly={isReadOnly}
                 onChange={(e) => {
-                  encodeFileToBase64(e.target.files[0]);
+                  setMainInputs({
+                    ...mainInputs,
+                    imgUrl: e.target.files[0]
+                  });
+                  setValue('imgUrl', e.target.files[0]);
+                  // encodeFileToBase64(e.target.files[0]);
                 }}
-                {...register('fileImg')}
+                // {...register('fileImg')}
               />
             </Button>
           )}
@@ -1129,8 +1160,8 @@ function MainResume({
                   <MenuItem value=''>직접 입력</MenuItem>
                   <MenuItem value='google.com'>google.com</MenuItem>
                   <MenuItem value='naver.com'>naver.com</MenuItem>
-                  <MenuItem value='naver.com'>hanmail.net</MenuItem>
-                  <MenuItem value='naver.com'>mtvs.com</MenuItem>
+                  <MenuItem value='hanmail.net'>hanmail.net</MenuItem>
+                  <MenuItem value='mtvs.com'>mtvs.com</MenuItem>
                 </Select>
               </FormControl>
             </PersonalDetailContentTextCardLast>
