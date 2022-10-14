@@ -59,10 +59,10 @@ function JobSearch() {
             aria-label='basic tabs example'
           >
             <Tab label='전체' {...a11yProps(0)} />
-            <Tab label='대기업' {...a11yProps(1)} />
+            {/* <Tab label='대기업' {...a11yProps(1)} />
             <Tab label='중견·중소' {...a11yProps(2)} />
             <Tab label='공기업·공사 ' {...a11yProps(3)} />
-            <Tab label='외국계' {...a11yProps(4)} />
+            <Tab label='외국계' {...a11yProps(4)} /> */}
             <Tab icon={<StarIcon />} iconPosition='end' label='관심기업'></Tab>
           </Tabs>
 
@@ -72,7 +72,7 @@ function JobSearch() {
           <BasicTable />
         </TabPanel>
 
-        <TabPanel value={value} index={1}>
+        {/* <TabPanel value={value} index={1}>
           대기업
         </TabPanel>
         <TabPanel value={value} index={2}>
@@ -83,7 +83,7 @@ function JobSearch() {
         </TabPanel>
         <TabPanel value={value} index={4}>
           외국계
-        </TabPanel>
+        </TabPanel> */}
         <TabPanel value={value} index={5}>
           관심기업
         </TabPanel>

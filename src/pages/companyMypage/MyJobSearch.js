@@ -128,7 +128,7 @@ export default function MyJobSearch() {
           component={Link}
           variant='outlined'
           size='large'
-          to={`/mypage/apply-list/${ids[0]}`}
+          to={`../apply-list/${ids[0]}`}
         >
           관리
         </Button>
