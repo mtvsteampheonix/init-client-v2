@@ -45,16 +45,19 @@ function SchoolAbility({register, setValue, isReadOnly, resumeInfo}) {
       ...schoolData,
       [e.target.name]: [e.target.value]
     });
-    // setValue(e.target.name, e.target.value);
+    setValue(e.target.name, e.target.value);
   };
 
   React.useEffect(() => {
     const schoolDivisionArray = [];
     const schoolNameArray = [];
-    for (let i = 0; i < resumeInfo.schoolInfoList.length; i++) {
-      schoolDivisionArray.push(resumeInfo.schoolInfoList[i].schoolDivision);
-      schoolNameArray.push(resumeInfo.schoolInfoList[i].schoolName);
+    if (resumeInfo) {
+      for (let i = 0; i < resumeInfo.schoolInfoList.length; i++) {
+        schoolDivisionArray.push(resumeInfo.schoolInfoList[i].schoolDivision);
+        schoolNameArray.push(resumeInfo.schoolInfoList[i].schoolName);
+      }
     }
+
     // console.log(schoolDivisionArray);
     setSchoolData({
       ...schoolData,
@@ -102,9 +105,11 @@ function SchoolAbility({register, setValue, isReadOnly, resumeInfo}) {
               size='small'
               id={i}
               // defaultValue='중학교'
-              onChange={onChangeHandler}
-              value={
-                schoolDivision.length > 1 ? schoolDivision[i] : schoolDivision
+              // onChange={onChangeHandler}
+              defaultValue={
+                resumeInfo &&
+                resumeInfo.schoolInfoList[i] &&
+                resumeInfo.schoolInfoList[i].schoolDivision
               }
               name={'schoolDivision'}
               readOnly={isReadOnly}
@@ -129,8 +134,12 @@ function SchoolAbility({register, setValue, isReadOnly, resumeInfo}) {
                 variant='outlined'
                 size='small'
                 type='text'
-                onChange={onChangeNameHandler}
-                value={schoolName.length > 1 ? schoolName[i] : schoolName}
+                // onChange={onChangeNameHandler}
+                defaultValue={
+                  resumeInfo &&
+                  resumeInfo.schoolInfoList[i] &&
+                  resumeInfo.schoolInfoList[i].schoolName
+                }
                 name={'schoolName'}
                 inputProps={{readOnly: isReadOnly}}
                 {...register('schoolName' + (i + 1))}
