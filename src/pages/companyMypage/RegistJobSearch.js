@@ -21,7 +21,7 @@ import Cookies from 'js-cookies';
 import {useNavigate} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
 import {SET_DATA} from '../../modules/jobsearch/RegistNoticeModule';
-import { CallPostJopSearchAPI } from '../../apis/jobsearch/JobSearchAPICalls';
+import {CallPostJopSearchAPI} from '../../apis/jobsearch/JobSearchAPICalls';
 
 export default function RegistJobSearch() {
   const state = useSelector((state) => state.registNoticeReducer);
@@ -34,12 +34,12 @@ export default function RegistJobSearch() {
   const handleChangeBegin = (newValue) => {
     // setBeginDay(newValue);
     //모집기간 dispatch
-    console.log('어지럽네'+typeof(newValue));
+    console.log('어지럽네' + typeof newValue);
     dispatch({
       type: SET_DATA,
       payload: {
         ...state,
-        recruitStartDate: newValue.format() 
+        recruitStartDate: newValue.format()
       }
     });
   };
@@ -52,7 +52,7 @@ export default function RegistJobSearch() {
       type: SET_DATA,
       payload: {
         ...state,
-        recruitEndDate: newValue.format() 
+        recruitEndDate: newValue.format()
       }
     });
   };
@@ -206,17 +206,17 @@ export default function RegistJobSearch() {
               label='salary'
               onChange={(e) => handleChangeSalary(e)}
             >
-              <MenuItem value={ 3000 }>3,000 이상</MenuItem>
-              <MenuItem value={ 3500 }>3,500 이상</MenuItem>
-              <MenuItem value={ 4000 }>4,000 이상</MenuItem>
-              <MenuItem value={ 4500 }>4,500 이상</MenuItem>
-              <MenuItem value={ 5000 }>5,000 이상</MenuItem>
-              <MenuItem value={ 5500 }>5,500 이상</MenuItem>
-              <MenuItem value={ 6000 }>6,000 이상</MenuItem>
-              <MenuItem value={ 6500 }>6,500 이상</MenuItem>
-              <MenuItem value={ 7000 }>7,000 이상</MenuItem>
-              <MenuItem value={ 7500 }>7,500 이상</MenuItem>
-              <MenuItem value={ 8000 }>8,000 이상</MenuItem>
+              <MenuItem value={3000}>3,000 이상</MenuItem>
+              <MenuItem value={3500}>3,500 이상</MenuItem>
+              <MenuItem value={4000}>4,000 이상</MenuItem>
+              <MenuItem value={4500}>4,500 이상</MenuItem>
+              <MenuItem value={5000}>5,000 이상</MenuItem>
+              <MenuItem value={5500}>5,500 이상</MenuItem>
+              <MenuItem value={6000}>6,000 이상</MenuItem>
+              <MenuItem value={6500}>6,500 이상</MenuItem>
+              <MenuItem value={7000}>7,000 이상</MenuItem>
+              <MenuItem value={7500}>7,500 이상</MenuItem>
+              <MenuItem value={8000}>8,000 이상</MenuItem>
             </Select>
           </FormControl>
         </Box>
@@ -455,9 +455,9 @@ export default function RegistJobSearch() {
                     // console.log(data.selfIntroList);
                     // console.log(data.selfIntroList);
                     // console.log(data.selfIntroList);
-                    dispatch(CallPostJopSearchAPI())
+                    dispatch(CallPostJopSearchAPI());
                     handleClose();
-                    // navigate('/mypage/jobsearch');
+                    navigate('/mypage/jobsearch');
                   }}
                 >
                   예

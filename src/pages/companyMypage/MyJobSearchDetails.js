@@ -72,12 +72,14 @@ export default function MyJobSearchDetails() {
     setPostEndDay(newValue);
   };
   /* 모집게시일 datepicker */
-  const [beginDay, setBeginDay] = React.useState(dayjs(state.recruitStartDate));
+  const [beginDay, setBeginDay] = React.useState(
+    dayjs(state?.recruitStartDate)
+  );
 
   const handleChangeBegin = (newValue) => {
     setBeginDay(newValue);
   };
-  const [endDay, setEndDay] = React.useState(dayjs(state.recruitEndDate));
+  const [endDay, setEndDay] = React.useState(dayjs(state?.recruitEndDate));
 
   const handleChangeEnd = (newValue) => {
     setEndDay(newValue);
@@ -95,15 +97,20 @@ export default function MyJobSearchDetails() {
   };
   const handleChangeSalary = (event) => {
     setSalary(event.target.value);
-    dispatch({type: SET_DATA, payload: {...state, annualIncome: event.target.value}});
+    dispatch({
+      type: SET_DATA,
+      payload: {...state, annualIncome: event.target.value}
+    });
   };
   // const handleChangeEmployees = (event) => {
   //   setEmployees(event.target.value);
   // };
   const handleChangeEducation = (event) => {
     setEducation(event.target.value);
-    dispatch({type: SET_DATA, payload: {...state, employees: event.target.value}});
-
+    dispatch({
+      type: SET_DATA,
+      payload: {...state, employees: event.target.value}
+    });
   };
 
   const skillList = ['java', 'python', 'C', 'spring', 'react', 'spring boot'];
@@ -257,7 +264,7 @@ export default function MyJobSearchDetails() {
           label='근무지 위치'
           multiline
           minRows={1}
-          defaultValue={state.entLocation}
+          defaultValue={state?.entLocation}
         />
 
         <TextField
@@ -267,7 +274,7 @@ export default function MyJobSearchDetails() {
           multiline
           minRows={5}
           InputProps={{sx: {height: '150px'}}}
-          defaultValue={state.benefits}
+          defaultValue={state?.benefits}
         />
       </Stack>
       <Box>
@@ -280,7 +287,7 @@ export default function MyJobSearchDetails() {
           required
           id='title'
           label='제목'
-          defaultValue={state.title}
+          defaultValue={state?.title}
         />
 
         <TextField
@@ -290,7 +297,7 @@ export default function MyJobSearchDetails() {
           multiline
           minRows={8}
           InputProps={{sx: {height: '200px'}}}
-          defaultValue={state.content}
+          defaultValue={state?.content}
         />
 
         <h3>자기소개서 항목</h3>
@@ -299,7 +306,7 @@ export default function MyJobSearchDetails() {
           margin='dense'
           id='firstQuestion'
           label='자기소개서 1번 문항'
-          defaultValue={state.selfIntroList[0]}
+          defaultValue={state?.selfIntroList[0]}
           placeholder='자기소개서 1번 문항을 입력해주세요.'
         />
 
@@ -323,7 +330,7 @@ export default function MyJobSearchDetails() {
 
         {/* 화면 하단 버튼 설정 */}
         <Box style={{textAlign: 'right'}}>
-          <Button variant='outlined' size='large' href='jobsearch'>
+          <Button variant='outlined' size='large' href='/jobsearch'>
             목록
           </Button>
         </Box>

@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Unstable_Grid2';
 import Button from '@mui/material/Button';
-import {Link, useParams} from 'react-router-dom';
+import {Link, useNavigate, useParams} from 'react-router-dom';
 import {useLocation} from 'react-router-dom';
 
 const Item = styled(Paper)(({theme}) => ({
@@ -18,15 +18,17 @@ const Item = styled(Paper)(({theme}) => ({
 function Details() {
   const location = useLocation();
 
-  // const noticeCodePk = location.state.noticeCodePk;
-  const noticeCodePk = useParams;
-  console.log(`왜   안돼${location.state.noticeCodePk}`);
+  const noticeCodePk = location.state.noticeCodePk;
+  // const noticeCodePk = useParams();
+  console.log(`왜 안돼${location.state.noticeCodePk}`);
   const [details, setDetails] = React.useState({});
 
   React.useEffect(async () => {
-    console.log(`왜안돼${location.state.noticeCodePk}`);
+    console.log(`왜안돼${noticeCodePk}`);
     console.log(noticeCodePk);
-    await fetch(`http://localhost:8080/jobsearchs/${noticeCodePk}`)
+    await fetch(
+      `http://localhost:8080/jobsearchs/${location.state.noticeCodePk}`
+    )
       .then((response) => response.json())
       .then((result) => setDetails(result.data));
   }, []);
@@ -123,7 +125,7 @@ function Details() {
       </div>
 
       <div style={{textAlign: 'center', margin: 10}}>
-        <Button component={Link} variant='contained' to='/recruit/apply'>
+        <Button component={Link} variant='contained' to='./'>
           지원하기
         </Button>
         <Button component={Link} variant='outlined' to='/jobsearch'>

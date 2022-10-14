@@ -5,6 +5,9 @@ import Withdraw from '../../pages/members/withdraws/Withdraw';
 import ApplyListCompany from '../../pages/match/ApplyListCompany';
 import ApplyListDetailCompany from '../../pages/match/ApplyListDetailCompany';
 import InterviewSuggestionCompany from '../../pages/match/InterviewSuggestionCompany';
+import MyJobSearch from '../../pages/companyMypage/MyJobSearch';
+import RegistJobSearch from '../../pages/companyMypage/RegistJobSearch';
+import MyJobSearchDetails from '../../pages/companyMypage/MyJobSearchDetails'; 
 
 export default function CompanyMypage() {
   return (
@@ -18,6 +21,9 @@ export default function CompanyMypage() {
         path='interview-suggestion'
         element={<InterviewSuggestionCompany />}
       />
+      <Route path='jobsearch' element={<MyJobSearch />} />
+      <Route path='jobsearch/:id' element={<MyJobSearchDetails/>}/>
+      <Route path='regist-jobsearch' element={<RegistJobSearch/>} />
       <Route index element={<Test />}></Route>
     </>
   );
