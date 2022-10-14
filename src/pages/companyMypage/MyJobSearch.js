@@ -37,17 +37,23 @@ export default function MyJobSearch() {
   const handleClosePost = async() => {
     /*구직공고 게시요청 자리*/
     console.log("here 구직공고 게시 "+ids)
-    const response = await fetch(`http://localhost:8080/jobsearchs/${ids[0]}`,{
-      method: 'put',
+    const response = await fetch(`http://localhost:8080/jobsearchs`,{
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         Accept: '*/*',
         'Access-Control-Allow-Origin': '*',
         Authorization: 'Bearer ' + Cookies.get('Bearer')
       },
-      body: JSON.stringify(ids)
+      body: JSON.stringify({
+        noticeCode:ids[0],
+        postStartDate: PostbeginDay,
+        postEndDate: PostendDay,
+      })
     })
-    window.location.reload();
+
+    console.log(response);
+    // window.location.reload();
     setOpenPost(false);
   };
 
@@ -81,14 +87,14 @@ export default function MyJobSearch() {
   /*게시일 선택 date picker*/
   /* datepicker */
   const [PostbeginDay, setPostBeginDay] = React.useState(
-    dayjs('2014-08-18T21:11:54')
+    dayjs().format()
   );
 
   const handleChangePostBegin = (newValue) => {
     setPostBeginDay(newValue);
   };
   const [PostendDay, setPostEndDay] = React.useState(
-    dayjs('2014-08-18T21:11:54')
+    dayjs().format()
   );
 
   const handleChangePostEnd = (newValue) => {

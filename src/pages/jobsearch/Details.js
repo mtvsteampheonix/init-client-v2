@@ -32,6 +32,8 @@ function Details() {
       .then((response) => response.json())
       .then((result) => setDetails(result.data));
   }, []);
+
+  
   return (
     <Container fixed>
       {/* 기업명 */}
