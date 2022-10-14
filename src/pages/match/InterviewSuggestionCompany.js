@@ -13,9 +13,8 @@ import dayjs from 'dayjs';
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
 import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
 import {DateTimePicker} from '@mui/x-date-pickers/DateTimePicker';
-import {TIME} from './../../modules/match/getTimeModule';
 
-function WriteProposal() {
+function InterviewSuggestionCompany() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [value, setValue] = React.useState(dayjs());
   const noticeCode = searchParams.get('noticeCode');
@@ -25,7 +24,6 @@ function WriteProposal() {
   const companyInformation = useSelector(
     (state) => state.companyInformationReducer
   );
-  const time = useSelector((state) => state.getTimeReducer);
   const navigate = useNavigate();
   const [interviewSuggestionInfo, setInterviewSuggestionInfo] = React.useState({
     division: division,
@@ -34,12 +32,6 @@ function WriteProposal() {
     interviewDate: '',
     description: ''
   });
-  const setInterviewTime = (value) => {
-    setInterviewSuggestionInfo({
-      ...interviewSuggestionInfo,
-      interviewDate: value
-    });
-  };
   React.useEffect(() => {
     dispatch(callCompanyInformationAPI(noticeCode));
   }, []);
@@ -133,7 +125,7 @@ function WriteProposal() {
                 marginTop: '8px'
               }}
               variant='outlined'
-              onClick={() => navigate('/mypage/apply-list')}
+              onClick={() => navigate('/mypage/apply-list/' + noticeCode)}
             >
               목록
             </Button>
@@ -175,7 +167,7 @@ function WriteProposal() {
                   );
                   if (result.data === 'success') {
                     alert('완료 되었습니다.');
-                    navigate('/mypage/apply-list');
+                    navigate('/mypage/apply-list/' + noticeCode);
                   }
                 } else {
                   alert('취소 되었습니다.');
@@ -191,4 +183,4 @@ function WriteProposal() {
   );
 }
 
-export default WriteProposal;
+export default InterviewSuggestionCompany;
