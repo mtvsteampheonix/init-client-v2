@@ -20,8 +20,9 @@ IT 산업의 성장으로, IT 인재에 대한 **수요는 천정부지**로 치
 
 <br>
 
-## MTVS Inner Project Phoenix
+해당 Repository는 IN IT의 클라이언트 서버 V2 입니다.<br>
+자세한 내용은 API 서버 Repository를 참고해주세요.
+<br><br>
 
-<br>
 
-All rights reserved.
+[👉IN IT 프로젝트 API 서버 보러가기](https://github.com/mtvsteampheonix/init-server)
